@@ -11,9 +11,12 @@ ROOT = Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from frontend.secrets_bootstrap import bootstrap_env
+try:
+    from frontend.secrets_bootstrap import bootstrap_env
 
-bootstrap_env()
+    bootstrap_env()
+except Exception:
+    pass
 
 st.set_page_config(
     page_title="Mutual Income Protection",
