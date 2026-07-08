@@ -18,11 +18,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from frontend.secrets_bootstrap import (
-    bootstrap_env,
-    encryption_key_configured,
-    secrets_diagnostics,
-)
+from frontend.secrets_bootstrap import bootstrap_env
 
 bootstrap_env()
 
@@ -101,10 +97,7 @@ def _process_submission(form_payload: dict[str, Any]) -> None:
         st.error(str(exc))
         return
     except Exception as exc:
-        st.error(
-            "We could not save your application. Add ENCRYPTION_KEY in "
-            "Streamlit Cloud → App settings → Secrets, then reboot the app."
-        )
+        st.error("We could not save your application. Please try again in a few minutes.")
         st.caption(f"Details: {exc}")
         return
 
@@ -120,38 +113,6 @@ def _process_submission(form_payload: dict[str, Any]) -> None:
 
 ensure_db()
 st.markdown(CUSTOMER_CSS, unsafe_allow_html=True)
-
-if not encryption_key_configured():
-    diag = secrets_diagnostics()
-    st.error(
-        "Application intake is not fully configured on the server. "
-        "Add secrets in Streamlit Cloud, then **Reboot app**."
-    )
-    st.markdown(
-        """
-        **Setup (one time)**
-
-        1. Run `python scripts/export_streamlit_secrets.py` on your PC
-        2. Open `exports/streamlit-secrets.toml` — copy **all 11 lines** (every `KEY = "value"` line)
-        3. [share.streamlit.io](https://share.streamlit.io) → your app → **Settings** → **Secrets**
-        4. Delete everything in the box, paste, **Save**, then **Reboot app**
-        5. Diagnostics should show **11 top-level keys** including `ENCRYPTION_KEY`
-
-        **Wrong:** `.env` style (`ENCRYPTION_KEY=abc`) or pasting only comment lines at the top.
-        **Right:** TOML style (`ENCRYPTION_KEY = "abc"`) with all 11 keys.
-        """
-    )
-    with st.expander("Administrator diagnostics (no secret values shown)"):
-        st.write(f"Secrets file loaded: **{diag['secrets_file_loaded']}**")
-        st.write(f"Secrets count: **{diag.get('secrets_count', 0)}**")
-        st.write(f"ENCRYPTION_KEY found: **{diag['encryption_key_found']}**")
-        if diag["top_level_keys"]:
-            st.write(f"Top-level keys in Secrets: `{', '.join(diag['top_level_keys'])}`")
-        else:
-            st.write("Top-level keys in Secrets: *(none — Secrets box is empty or not saved)*")
-        if diag["parse_error"]:
-            st.warning(f"Parse error: {diag['parse_error']}")
-    st.stop()
 
 if st.session_state.get("submission_success"):
     success = st.session_state["submission_success"]
