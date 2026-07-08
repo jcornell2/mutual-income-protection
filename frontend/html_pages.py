@@ -37,20 +37,27 @@ STREAMLIT_SUBMIT_HANDLER = """
 """
 
 
-def _patch_apply_links(html: str) -> str:
-    html = html.replace('href="/apply"', 'href="/Apply" target="_parent"')
-    html = html.replace('href="/"', 'href="/" target="_parent"')
+def _patch_streamlit_links(html: str) -> str:
+    """Break out of Streamlit component iframes when navigating between pages."""
+    html = html.replace(
+        'href="/apply"',
+        'href="/Apply" target="_top" onclick="window.top.location.href=\'/Apply\';return false;"',
+    )
+    html = html.replace(
+        'href="/"',
+        'href="/" target="_top" onclick="window.top.location.href=\'/\';return false;"',
+    )
     return html
 
 
 def load_landing_html() -> str:
     html = (STATIC_DIR / "landing.html").read_text(encoding="utf-8")
-    return _patch_apply_links(html)
+    return _patch_streamlit_links(html)
 
 
 def load_intake_html() -> str:
     html = (STATIC_DIR / "capture_form.html").read_text(encoding="utf-8")
-    html = _patch_apply_links(html)
+    html = _patch_streamlit_links(html)
 
     old_submit = """    form.addEventListener("submit", async (e) => {
       e.preventDefault();

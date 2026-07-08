@@ -39,6 +39,17 @@ def render() -> None:
     ensure_db()
     apply_brand("Mutual Income Protection | Home")
     st.markdown(CUSTOMER_CSS, unsafe_allow_html=True)
+
+    c1, c2, c3 = st.columns([1, 2, 1])
+    with c2:
+        if st.button(
+            "Begin Secure Pre-Application →",
+            type="primary",
+            use_container_width=True,
+            key="home_start_apply",
+        ):
+            st.switch_page("frontend/pages/Apply.py")
+
     components.html(load_landing_html(), height=2400, scrolling=True)
 
 
