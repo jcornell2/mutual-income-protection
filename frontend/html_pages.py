@@ -38,7 +38,9 @@ STREAMLIT_SUBMIT_HANDLER = """
 
 
 def _patch_apply_links(html: str) -> str:
-    return html.replace('href="/apply"', 'href="/Apply"')
+    html = html.replace('href="/apply"', 'href="/Apply" target="_parent"')
+    html = html.replace('href="/"', 'href="/" target="_parent"')
+    return html
 
 
 def load_landing_html() -> str:
