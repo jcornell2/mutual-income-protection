@@ -143,6 +143,7 @@ if not encryption_key_configured():
     )
     with st.expander("Administrator diagnostics (no secret values shown)"):
         st.write(f"Secrets file loaded: **{diag['secrets_file_loaded']}**")
+        st.write(f"Secrets count: **{diag.get('secrets_count', 0)}**")
         st.write(f"ENCRYPTION_KEY found: **{diag['encryption_key_found']}**")
         if diag["top_level_keys"]:
             st.write(f"Top-level keys in Secrets: `{', '.join(diag['top_level_keys'])}`")

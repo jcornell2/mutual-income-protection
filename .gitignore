@@ -5,5 +5,5 @@ __pycache__/
 .venv/
 venv/
 *.db
-.streamlit/secrets.toml
+# secrets.toml is committed for private-repo Streamlit Cloud deploy (Cloud UI paste was empty)
 exports/

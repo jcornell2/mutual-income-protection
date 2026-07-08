@@ -129,17 +129,20 @@ def secrets_diagnostics() -> dict[str, Any]:
         "secrets_file_loaded": False,
         "encryption_key_found": False,
         "top_level_keys": [],
+        "secrets_count": 0,
         "parse_error": None,
     }
     st = _get_st()
     try:
         status["secrets_file_loaded"] = bool(st.secrets.load_if_toml_exists())
+        status["secrets_count"] = len(st.secrets)
     except Exception as exc:
         status["parse_error"] = str(exc)
         return status
 
     secrets_map, read_error = _safe_secret_map()
     status["top_level_keys"] = sorted(str(k) for k in secrets_map.keys())
+    status["secrets_count"] = len(secrets_map) or status["secrets_count"]
     if read_error:
         status["parse_error"] = read_error
     elif not secrets_map and status["secrets_file_loaded"]:
