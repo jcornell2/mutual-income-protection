@@ -27,40 +27,51 @@ from app.schemas import LeadCreate
 from app.services import create_lead, lead_to_response
 from frontend.db import ensure_db, get_session
 from frontend.html_pages import load_intake_html
-from frontend.styles import apply_brand, brand_header
 
 CUSTOMER_CSS = """
 <style>
+.stApp { background: #F5F7FA; }
 [data-testid="stSidebar"] { display: none; }
 [data-testid="stSidebarCollapsedControl"] { display: none; }
 header[data-testid="stHeader"] { opacity: 0; pointer-events: none; }
-.block-container { padding-top: 0.5rem; max-width: 100%; }
+.block-container { padding-top: 0; padding-left: 0; padding-right: 0; max-width: 100%; }
+.main .block-container { padding-top: 0; }
+.stApp h1, .stApp h2, .stApp h3 { color: inherit; }
 iframe { border: none !important; }
 </style>
 """
 
 ensure_db()
-apply_brand("Mutual Income Protection | Pre-Application")
+st.set_page_config(
+    page_title="Start My Protected Application | Mutual Income Protection",
+    page_icon="🛡️",
+    layout="wide",
+)
 st.markdown(CUSTOMER_CSS, unsafe_allow_html=True)
 
 if st.session_state.get("submission_success"):
     success = st.session_state["submission_success"]
-    brand_header("Pre-Application Submitted")
-    st.success(
-        f"Thank you, **{success['name']}**. Your reference ID is **#{success['id']}**.\n\n"
-        f"Preliminary score: **{success['score']}/100** ({success['tier']} tier). "
-        "A licensed agent will contact you using your stated preference."
+    st.markdown(
+        f"""
+        <div style="max-width:720px;margin:1.5rem auto;padding:1.5rem;background:#fff;
+        border-radius:12px;border:1px solid #D4DCE6;border-bottom:4px solid #C4A962;">
+          <h2 style="color:#002F6C;margin:0 0 0.5rem;">Application received</h2>
+          <p style="margin:0;color:#1A2B3C;line-height:1.6;">
+            Thank you, <strong>{success['name']}</strong>. Reference ID <strong>#{success['id']}</strong>.<br>
+            Preliminary score: <strong>{success['score']}/100</strong> ({success['tier']} tier).<br>
+            Jacob Cornell (NPN 20476670) will contact you using your stated preference.
+          </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
-    if st.button("Submit another application"):
+    if st.button("Submit another application", type="primary"):
         st.session_state.pop("submission_success", None)
         st.session_state.pop("processed_submission_key", None)
         st.rerun()
     st.stop()
 
-brand_header("Secure Pre-Application")
-st.caption("This form is open to the public. No login required.")
-
-payload = components.html(load_intake_html(), height=2200, scrolling=True)
+payload = components.html(load_intake_html(), height=2400, scrolling=True)
 
 if not payload:
     st.stop()

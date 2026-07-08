@@ -57,8 +57,46 @@
       white-space: nowrap;
     }
     .back-link:hover { color: #fff; text-decoration: underline; }
-    .header h1 { margin: 0 0 0.3rem; font-size: 1.65rem; font-weight: 700; }
-    .header p { margin: 0; opacity: 0.9; max-width: 680px; font-size: 0.92rem; }
+    .header h1 { margin: 0 0 0.35rem; font-size: clamp(1.35rem, 3vw, 1.85rem); font-weight: 700; line-height: 1.2; }
+    .header .subhead {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1.35;
+    }
+    .header p { margin: 0; opacity: 0.92; max-width: 720px; font-size: 0.92rem; line-height: 1.5; }
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(196,169,98,0.5);
+      color: #fff;
+      padding: 0.35rem 0.7rem;
+      border-radius: 99px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .fast-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(29,122,75,0.15);
+      border: 1px solid rgba(29,122,75,0.35);
+      color: #d4f5e2;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 0.75rem;
+    }
     .progress-wrap {
       max-width: 920px;
       margin: 0 auto;
@@ -98,15 +136,17 @@
     .step-dots span.done { color: var(--success); }
     .container { max-width: 920px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
     .disclaimer {
-      background: #FFF9E6;
-      border: 1px solid var(--gold);
-      border-left: 5px solid var(--gold);
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--navy);
       border-radius: 8px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1.25rem;
-      font-size: 0.86rem;
-      color: var(--navy-dark);
+      padding: 0.85rem 1.1rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
     }
+    .disclaimer strong { color: var(--navy); }
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -282,9 +322,17 @@
     <div class="header-inner">
       <div class="header-top">
         <div>
-          <div class="brand-label">Mutual Income Protection</div>
-          <h1>Disability Insurance Pre-Application</h1>
-          <p>For residents, fellows, and attending physicians and dentists.</p>
+          <div class="brand-label">Secure Pre-Application · Physicians &amp; Dentists</div>
+          <h1>Start My Protected Application</h1>
+          <p class="subhead">Protect Your $300k+ Income — Target Premium Under 1-3%</p>
+          <p>Professional 8-step intake designed for busy clinicians. Encrypted, carrier-ready, and built for own-occupation disability coverage.</p>
+          <div class="fast-note">⏱️ About 12 minutes · Step-by-step · Instant AI score at the end</div>
+          <div class="trust-strip">
+            <span class="trust-pill">🔒 Encrypted</span>
+            <span class="trust-pill">🛡️ Own-Occupation</span>
+            <span class="trust-pill">✓ No Obligation</span>
+            <span class="trust-pill">👤 Jacob Cornell, NPN 20476670</span>
+          </div>
         </div>
         <a class="back-link" href="/">← Back to Home</a>
       </div>
@@ -313,9 +361,8 @@
 
   <div class="container">
     <div class="disclaimer" id="topDisclaimer">
-      <strong>Important:</strong> Mutual Income Protection is an information-gathering tool only.
-      <strong>Advisor: Jacob Cornell, NPN 20476670</strong> — licensed American agent with 3+ years of experience, guaranteed.
-      An agent will call or email you after submission based on your preference.
+      <strong>Quick note:</strong> This is a secure information-gathering intake — not a binding insurance application.
+      Advisor <strong>Jacob Cornell (NPN 20476670)</strong> will contact you by your preferred method after submission.
     </div>
 
     <form id="leadForm" novalidate>

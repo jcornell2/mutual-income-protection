@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Mutual Income Protection — disability income insurance pre-application for physicians and dentists." />
-  <title>Mutual Income Protection | Disability Income Insurance</title>
+  <meta name="description" content="Disability insurance for busy physicians and dentists. Protect your $300k+ income with target premiums under 1-3%. Start your protected application in ~12 minutes." />
+  <title>Mutual Income Protection | Disability Insurance for Physicians &amp; Dentists</title>
   <style>
     :root {
       --navy: #002F6C;
@@ -149,12 +149,40 @@
       font-style: normal;
       color: var(--gold-light);
     }
-    .hero-lead {
-      font-size: 1.12rem;
-      opacity: 0.93;
-      max-width: 540px;
-      margin-bottom: 2rem;
+    .hero-subhead {
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-weight: 700;
+      color: var(--gold-light);
+      margin: 0 0 1rem;
+      line-height: 1.35;
     }
+    .hero-lead {
+      font-size: 1.05rem;
+      opacity: 0.92;
+      max-width: 560px;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .hero-trust-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 1.35rem;
+    }
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(196,169,98,0.45);
+      color: #fff;
+      padding: 0.4rem 0.75rem;
+      border-radius: 99px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .trust-badge strong { color: var(--gold-light); font-weight: 700; }
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
     .btn-primary {
       display: inline-block;
@@ -196,23 +224,30 @@
 
     /* Trust bar */
     .trust-bar {
-      background: var(--card);
+      background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
       border-bottom: 1px solid var(--border);
-      padding: 1.25rem 0;
+      padding: 1.5rem 0;
     }
     .trust-items {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
     }
     .trust-item {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      font-size: 0.88rem;
+      gap: 0.75rem;
+      font-size: 0.84rem;
       font-weight: 600;
       color: var(--navy);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,47,108,0.05);
     }
     .trust-icon {
       width: 36px;
@@ -426,7 +461,7 @@
   </style>
 </head>
 <body>
-  <div class="topbar">Mutual Income Protection — Independent Disability Insurance Pre-Application</div>
+  <div class="topbar">Trusted by physicians &amp; dentists nationwide · Advisor: Jacob Cornell, NPN 20476670</div>
 
   <nav>
     <div class="wrap nav-inner">
@@ -437,53 +472,67 @@
           <div class="brand-sub">Physician &amp; Dentist Disability Insurance</div>
         </div>
       </a>
-      <a class="nav-cta" href="/apply">Start Pre-Application →</a>
+      <a class="nav-cta" href="/apply">Start My Protected Application →</a>
     </div>
   </nav>
 
   <header class="hero">
     <div class="wrap hero-grid">
       <div>
-        <span class="hero-badge">Pre-Application Simulator</span>
-        <h1>Protect Your <em>Income</em> Before You Need It</h1>
+        <span class="hero-badge">Residents · Fellows · Attendings</span>
+        <h1>Disability Insurance Built for Busy Physicians &amp; Dentists</h1>
+        <p class="hero-subhead">Protect Your $300k+ Income — Target Premium Under 1-3%</p>
         <p class="hero-lead">
-          Mutual Income Protection helps residents, fellows, and attending physicians and dentists
-          complete a secure, carrier-ready disability income insurance intake — with AI-powered
-          preliminary scoring and premium targeting at 1–3% of annual income.
+          Complete a secure, carrier-ready intake in about 12 minutes. Get instant AI preliminary scoring
+          and a licensed advisor review — no obligation, no spam.
         </p>
         <div class="hero-actions">
-          <a class="btn-primary" href="/apply">Begin Secure Pre-Application →</a>
-          <span class="hero-note">~15–20 min · Encrypted · No obligation</span>
+          <a class="btn-primary" href="/apply">Start My Protected Application →</a>
+          <span class="hero-note">~12 min · 256-bit encrypted · No obligation</span>
+        </div>
+        <div class="hero-trust-badges">
+          <span class="trust-badge">🔒 <strong>Encrypted</strong></span>
+          <span class="trust-badge">🛡️ <strong>Own-Occupation</strong></span>
+          <span class="trust-badge">⚡ <strong>Instant AI Score</strong></span>
+          <span class="trust-badge">✓ <strong>No Obligation</strong></span>
         </div>
       </div>
       <div class="hero-card">
-        <h3>At a Glance</h3>
-        <div class="stat-row"><span>Target Audience</span><span class="stat-val">MDs &amp; DDS</span></div>
-        <div class="stat-row"><span>Form Sections</span><span class="stat-val">8 Steps</span></div>
-        <div class="stat-row"><span>Premium Goal</span><span class="stat-val">1–3% Income</span></div>
-        <div class="stat-row"><span>Scoring</span><span class="stat-val">AI Tier Rating</span></div>
-        <div class="stat-row"><span>Your Advisor</span><span class="stat-val">Jacob Cornell</span></div>
+        <h3>Why clinicians start here</h3>
+        <div class="stat-row"><span>Built for</span><span class="stat-val">MDs, DOs &amp; DDS</span></div>
+        <div class="stat-row"><span>Income protected</span><span class="stat-val">$300k+ typical</span></div>
+        <div class="stat-row"><span>Premium target</span><span class="stat-val">Under 1-3%</span></div>
+        <div class="stat-row"><span>Completion time</span><span class="stat-val">~12 minutes</span></div>
+        <div class="stat-row"><span>Your advisor</span><span class="stat-val">Jacob Cornell</span></div>
       </div>
     </div>
   </header>
 
   <div class="trust-bar">
-    <div class="wrap trust-items">
+    <div class="trust-items">
       <div class="trust-item">
         <div class="trust-icon">🔒</div>
-        <span>256-bit Encrypted Data</span>
+        <span>256-bit encrypted · HIPAA-aware</span>
       </div>
       <div class="trust-item">
-        <div class="trust-icon">🏥</div>
-        <span>HIPAA-Aware Practices</span>
+        <div class="trust-icon">⚕️</div>
+        <span>Own-occupation specialty protection</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💰</div>
+        <span>Premium targeting under 1-3% of income</span>
       </div>
       <div class="trust-item">
         <div class="trust-icon">🤖</div>
-        <span>AI Preliminary Scoring</span>
+        <span>Instant AI preliminary score</span>
       </div>
       <div class="trust-item">
-        <div class="trust-icon">🛡️</div>
-        <span>Own-Occupation Focus</span>
+        <div class="trust-icon">✓</div>
+        <span>Licensed advisor · NPN 20476670</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⏱️</div>
+        <span>~12 min · Save as you go</span>
       </div>
     </div>
   </div>
@@ -650,9 +699,9 @@
 
   <div class="cta-band">
     <div class="wrap">
-      <h2>Ready to Protect Your Income?</h2>
-      <p>Start your secure Mutual Income Protection pre-application today. Receive instant AI scoring and connect with a licensed advisor.</p>
-      <a class="btn-primary" href="/apply">Start Pre-Application →</a>
+      <h2>Protect Your $300k+ Income Today</h2>
+      <p>Join physicians and dentists who secure own-occupation coverage with target premiums under 1-3%. Takes ~12 minutes.</p>
+      <a class="btn-primary" href="/apply">Start My Protected Application →</a>
     </div>
   </div>
 
