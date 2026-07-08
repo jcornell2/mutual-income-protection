@@ -38,11 +38,6 @@ header[data-testid="stHeader"] { opacity: 0; pointer-events: none; }
 
 def render() -> None:
     ensure_db()
-    st.set_page_config(
-        page_title="Mutual Income Protection | Home",
-        page_icon="🛡️",
-        layout="wide",
-    )
     st.markdown(CUSTOMER_CSS, unsafe_allow_html=True)
     st.html(load_landing_html(), width="stretch")
 

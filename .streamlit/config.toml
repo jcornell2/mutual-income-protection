@@ -2,6 +2,7 @@
 headless = true
 address = "0.0.0.0"
 enableXsrfProtection = true
+enableStaticServing = true
 
 [browser]
 gatherUsageStats = false

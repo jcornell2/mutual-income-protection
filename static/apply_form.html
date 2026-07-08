@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mutual Income Protection | Pre-Application</title>
+  <style>
+    :root {
+      --navy: #002F6C;
+      --navy-dark: #001E45;
+      --gold: #C4A962;
+      --gold-light: #E8D9A8;
+      --bg: #F5F7FA;
+      --card: #ffffff;
+      --border: #D4DCE6;
+      --text: #1A2B3C;
+      --muted: #5A6B7D;
+      --success: #1d7a4b;
+      --error: #b42318;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+      color: #fff;
+      padding: 1.5rem 1rem 1.25rem;
+      border-bottom: 4px solid var(--gold);
+    }
+    .header-inner { max-width: 920px; margin: 0 auto; }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+    .brand-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold-light);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .back-link {
+      color: var(--gold-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .back-link:hover { color: #fff; text-decoration: underline; }
+    .header h1 { margin: 0 0 0.35rem; font-size: clamp(1.35rem, 3vw, 1.85rem); font-weight: 700; line-height: 1.2; }
+    .header .subhead {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1.35;
+    }
+    .header p { margin: 0; opacity: 0.92; max-width: 720px; font-size: 0.92rem; line-height: 1.5; }
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(196,169,98,0.5);
+      color: #fff;
+      padding: 0.35rem 0.7rem;
+      border-radius: 99px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .fast-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(29,122,75,0.15);
+      border: 1px solid rgba(29,122,75,0.35);
+      color: #d4f5e2;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 0.75rem;
+    }
+    .progress-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 0;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+    .progress-track {
+      height: 8px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--navy), var(--gold));
+      border-radius: 99px;
+      transition: width 0.35s ease;
+      width: 12.5%;
+    }
+    .step-dots {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 0.25rem;
+      margin-top: 0.65rem;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+    .step-dots span { text-align: center; }
+    .step-dots span.active { color: var(--navy); font-weight: 700; }
+    .step-dots span.done { color: var(--success); }
+    .container { max-width: 920px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+    .disclaimer {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--navy);
+      border-radius: 8px;
+      padding: 0.85rem 1.1rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .disclaimer strong { color: var(--navy); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 16px rgba(0, 47, 108, 0.06);
+    }
+    .card h2 {
+      margin: 0 0 0.35rem;
+      font-size: 1.2rem;
+      color: var(--navy);
+    }
+    .card h3 {
+      margin: 1.25rem 0 0.75rem;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+    .step-desc {
+      margin: 0 0 1.25rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-bottom: 2px solid var(--gold-light);
+      padding-bottom: 0.75rem;
+    }
+    .grid { display: grid; gap: 1rem; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    label { display: block; font-weight: 600; margin-bottom: 0.35rem; font-size: 0.92rem; }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font: inherit;
+      background: #fff;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid var(--gold-light);
+      border-color: var(--navy);
+    }
+    input.invalid, select.invalid, textarea.invalid {
+      border-color: var(--error);
+      outline-color: rgba(180, 35, 24, 0.2);
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem 1rem;
+    }
+    .checkbox-grid label,
+    .consent label {
+      font-weight: 400;
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+      font-size: 0.88rem;
+    }
+    .checkbox-grid input,
+    .consent input { width: auto; margin-top: 0.2rem; flex-shrink: 0; }
+    .ssn-wrap { position: relative; }
+    .ssn-wrap input { padding-right: 4.5rem; }
+    .ssn-toggle {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--navy);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.25rem 0.4rem;
+      border-radius: 4px;
+    }
+    .ssn-toggle:hover { background: var(--bg); }
+    .consent {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .privacy-block {
+      background: #F0F4F8;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+    .privacy-block h3 {
+      margin: 0 0 0.75rem;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+    .privacy-block ul { margin: 0.5rem 0 0; padding-left: 1.25rem; }
+    .privacy-block li { margin-bottom: 0.35rem; }
+    .nav-buttons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 0.85rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+    }
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+      border-bottom: 3px solid var(--gold);
+    }
+    .btn-primary:hover { background: var(--navy-dark); }
+    .btn-secondary {
+      background: #fff;
+      color: var(--navy);
+      border: 2px solid var(--border);
+      flex: 0 0 auto;
+      min-width: 120px;
+    }
+    .btn-secondary:hover { border-color: var(--navy); }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+    .field-error {
+      font-size: 0.8rem;
+      color: var(--error);
+      margin-top: 0.25rem;
+      display: none;
+    }
+    .field-error.show { display: block; }
+    .message { margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 8px; display: none; }
+    .message.error { display: block; background: #fdecec; color: var(--error); border: 1px solid #f5c2c0; }
+    .required::after { content: " *"; color: var(--error); }
+    .hint { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+    .hidden { display: none !important; }
+    .success-panel { text-align: center; padding: 2rem 1rem; }
+    .success-panel .tier-badge {
+      display: inline-block;
+      background: var(--navy);
+      color: var(--gold-light);
+      padding: 0.5rem 1.25rem;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin: 1rem 0;
+      border: 2px solid var(--gold);
+    }
+    .score-detail {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 700px) {
+      .grid-2, .grid-3, .checkbox-grid { grid-template-columns: 1fr; }
+      .step-dots { font-size: 0.52rem; }
+      .nav-buttons { flex-direction: column-reverse; }
+      .btn-secondary { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-top">
+        <div>
+          <div class="brand-label">Secure Pre-Application · Physicians &amp; Dentists</div>
+          <h1>Start My Protected Application</h1>
+          <p class="subhead">Protect Your $300k+ Income — Target Premium Under 1-3%</p>
+          <p>Professional 8-step intake designed for busy clinicians. Encrypted, carrier-ready, and built for own-occupation disability coverage.</p>
+          <div class="fast-note">⏱️ About 12 minutes · Step-by-step · Instant AI score at the end</div>
+          <div class="trust-strip">
+            <span class="trust-pill">🔒 Encrypted</span>
+            <span class="trust-pill">🛡️ Own-Occupation</span>
+            <span class="trust-pill">✓ No Obligation</span>
+            <span class="trust-pill">👤 Jacob Cornell, NPN 20476670</span>
+          </div>
+        </div>
+        <a class="back-link" href="/" target="_top" onclick="window.top.location.href='/';return false;">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="stepTitle">Step 1 of 8 — Personal Information</span>
+      <span id="stepPercent">12%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="step-dots" id="stepDots">
+      <span class="active" data-step="1">Personal</span>
+      <span data-step="2">Occupation</span>
+      <span data-step="3">Financial</span>
+      <span data-step="4">Insurance</span>
+      <span data-step="5">Medical</span>
+      <span data-step="6">Lifestyle</span>
+      <span data-step="7">Disability</span>
+      <span data-step="8">Disclosures</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="disclaimer" id="topDisclaimer">
+      <strong>Quick note:</strong> This is a secure information-gathering intake — not a binding insurance application.
+      Advisor <strong>Jacob Cornell (NPN 20476670)</strong> will contact you by your preferred method after submission.
+    </div>
+
+    <form id="leadForm" novalidate>
+      <!-- STEP 1: Personal -->
+      <div class="step-panel active" data-step="1">
+        <div class="card">
+          <h2>Personal Information</h2>
+          <p class="step-desc">Your contact details so Jacob Cornell (NPN 20476670) can reach you after submission.</p>
+          <div class="grid grid-2">
+            <div>
+              <label class="required" for="full_name">Full Legal Name</label>
+              <input id="full_name" name="full_name" required autocomplete="name" maxlength="200" />
+              <div class="field-error" data-for="full_name"></div>
+            </div>
+            <div>
+              <label class="required" for="date_of_birth">Date of Birth</label>
+              <input id="date_of_birth" name="date_of_birth" type="date" required />
+              <div class="field-error" data-for="date_of_birth"></div>
+            </div>
+            <div>
+              <label class="required" for="email">Email</label>
+              <input id="email" name="email" type="email" required autocomplete="email" />
+              <div class="field-error" data-for="email"></div>
+            </div>
+            <div>
+              <label class="required" for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="(555) 555-5555" />
+              <div class="field-error" data-for="phone"></div>
+            </div>
+            <div>
+              <label class="required" for="contact_preference">Preferred Contact Method</label>
+              <select id="contact_preference" name="contact_preference" required>
+                <option value="">Select...</option>
+                <option value="phone">Phone call</option>
+                <option value="email">Email</option>
+                <option value="either">Either phone or email</option>
+              </select>
+              <p class="hint">Jacob Cornell (NPN 20476670) will follow up using this preference.</p>
+              <div class="field-error" data-for="contact_preference"></div>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <label class="required" for="address_street">Street Address</label>
+              <input id="address_street" name="address_street" required autocomplete="street-address" maxlength="256" />
+              <div class="field-error" data-for="address_street"></div>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <label for="address_line2">Address Line 2</label>
+              <input id="address_line2" name="address_line2" autocomplete="address-line2" maxlength="256" placeholder="Apt, suite, unit" />
+            </div>
+            <div>
+              <label class="required" for="address_city">City</label>
+              <input id="address_city" name="address_city" required autocomplete="address-level2" maxlength="128" />
+              <div class="field-error" data-for="address_city"></div>
+            </div>
+            <div>
+              <label class="required" for="address_state">State</label>
+              <input id="address_state" name="address_state" required autocomplete="address-level1" maxlength="32" placeholder="e.g., IL" />
+              <div class="field-error" data-for="address_state"></div>
+            </div>
+            <div>
+              <label class="required" for="address_zip">ZIP Code</label>
+              <input id="address_zip" name="address_zip" required autocomplete="postal-code" maxlength="16" />
+              <div class="field-error" data-for="address_zip"></div>
+            </div>
+            <div>
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender">
+                <option value="">Prefer not to say</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="non_binary">Non-binary</option>
+                <option value="prefer_not_to_say">Prefer not to say</option>
+              </select>
+            </div>
+            <div>
+              <label for="marital_status">Marital Status</label>
+              <select id="marital_status" name="marital_status">
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="domestic_partner">Domestic Partner</option>
+                <option value="divorced">Divorced</option>
+                <option value="widowed">Widowed</option>
+              </select>
+            </div>
+            <div>
+              <label for="dependents_count">Number of Dependents</label>
+              <input id="dependents_count" name="dependents_count" type="number" min="0" max="20" value="0" />
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <label for="dependents_details">Dependents Details</label>
+              <textarea id="dependents_details" name="dependents_details" maxlength="2000" placeholder="Names, ages, and relationships (optional)"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: Occupation -->
+      <div class="step-panel" data-step="2">
+        <div class="card">
+          <h2>Occupation &amp; Duties</h2>
+          <p class="step-desc">Professional details used for own-occupation disability underwriting.</p>
+          <div class="grid grid-2">
+            <div>
+              <label class="required" for="provider_type">Provider Type</label>
+              <select id="provider_type" name="provider_type" required>
+                <option value="">Select...</option>
+                <option value="physician">Physician</option>
+                <option value="dentist">Dentist</option>
+              </select>
+              <div class="field-error" data-for="provider_type"></div>
+            </div>
+            <div>
+              <label class="required" for="career_stage">Career Stage</label>
+              <select id="career_stage" name="career_stage" required>
+                <option value="">Select...</option>
+                <option value="resident">Resident</option>
+                <option value="fellow">Fellow</option>
+                <option value="new_attending">New Attending (0–3 years)</option>
+                <option value="established_attending">Established Attending</option>
+              </select>
+              <div class="field-error" data-for="career_stage"></div>
+            </div>
+            <div>
+              <label class="required" for="specialty">Specialty</label>
+              <select id="specialty" name="specialty" required></select>
+              <div class="field-error" data-for="specialty"></div>
+            </div>
+            <div>
+              <label class="required" for="occupation_title">Occupation Title</label>
+              <input id="occupation_title" name="occupation_title" required maxlength="128" placeholder="e.g., Anesthesiologist" />
+              <div class="field-error" data-for="occupation_title"></div>
+            </div>
+            <div>
+              <label class="required" for="place_of_work">Place of Work</label>
+              <input id="place_of_work" name="place_of_work" required maxlength="256" />
+              <div class="field-error" data-for="place_of_work"></div>
+            </div>
+            <div>
+              <label class="required" for="employer_type">Employer Type</label>
+              <select id="employer_type" name="employer_type" required>
+                <option value="hospital">Hospital</option>
+                <option value="private_practice">Private Practice</option>
+                <option value="academic">Academic</option>
+                <option value="group_practice">Group Practice</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="required" for="hours_worked_per_week">Hours Worked Per Week</label>
+              <input id="hours_worked_per_week" name="hours_worked_per_week" type="number" min="1" max="120" required />
+              <div class="field-error" data-for="hours_worked_per_week"></div>
+            </div>
+            <div>
+              <label class="required" for="work_city">Work City</label>
+              <input id="work_city" name="work_city" required maxlength="128" />
+              <div class="field-error" data-for="work_city"></div>
+            </div>
+            <div>
+              <label class="required" for="work_state">Work State</label>
+              <input id="work_state" name="work_state" required maxlength="32" placeholder="e.g., TX" />
+              <div class="field-error" data-for="work_state"></div>
+            </div>
+            <div>
+              <label for="work_zip">Work ZIP</label>
+              <input id="work_zip" name="work_zip" maxlength="16" />
+            </div>
+            <div id="trainingWrap" class="hidden">
+              <label class="required" for="training_program">Training Program</label>
+              <input id="training_program" name="training_program" maxlength="256" placeholder="Residency or fellowship program" />
+              <div class="field-error" data-for="training_program"></div>
+            </div>
+            <div>
+              <label for="license_state">License State</label>
+              <input id="license_state" name="license_state" maxlength="32" />
+            </div>
+            <div>
+              <label for="graduation_year">Graduation Year</label>
+              <input id="graduation_year" name="graduation_year" type="number" min="1970" max="2040" />
+            </div>
+            <div>
+              <label for="years_in_practice">Years in Practice</label>
+              <input id="years_in_practice" name="years_in_practice" type="number" min="0" max="60" />
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <label class="required" for="duties_performed">Duties Performed</label>
+              <textarea id="duties_performed" name="duties_performed" required maxlength="3000" placeholder="Describe your clinical duties, procedures, call schedule, and patient care responsibilities"></textarea>
+              <div class="field-error" data-for="duties_performed"></div>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <label class="required" for="income_sources">Income Sources</label>
+              <textarea id="income_sources" name="income_sources" required maxlength="2000" placeholder="Salary, bonuses, moonlighting, consulting, etc."></textarea>
+              <div class="field-error" data-for="income_sources"></div>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <label class="required" for="key_responsibilities">Key Responsibilities</label>
+              <textarea id="key_responsibilities" name="key_responsibilities" required maxlength="2000" placeholder="Primary clinical and administrative responsibilities"></textarea>
+              <div class="field-error" data-for="key_responsibilities"></div>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <label for="specialized_skills">Specialized Skills</label>
+              <textarea id="specialized_skills" name="specialized_skills" maxlength="2000" placeholder="Procedures, certifications, subspecialty skills"></textarea>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <label for="occupation_details">Additional Occupation Details</label>
+              <textarea id="occupation_details" name="occupation_details" maxlength="2000" placeholder="Part-time status, academic appointments, etc."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: Financial -->
+      <div class="step-panel" data-step="3">
+        <div class="card">
+          <h2>Financial Profile</h2>
+          <p class="step-desc">Income, expenses, assets, and coverage goals for premium structuring.</p>
+          <div class="grid grid-2">
+            <div>
+              <label class="required" for="annual_income_amount">Annual Income ($)</label>
+              <input id="annual_income_amount" name="annual_income_amount" type="number" min="0" max="10000000" required />
+              <div class="field-error" data-for="annual_income_amount"></div>
+            </div>
+            <div>
+              <label class="required" for="monthly_expenses_range">Monthly Living Expenses</label>
+              <select id="monthly_expenses_range" name="monthly_expenses_range" required>
+                <option value="">Select...</option>
+                <option value="under_3k">Under $3,000/mo</option>
+                <option value="3k_8k">$3,000 – $8,000/mo</option>
+                <option value="8k_15k">$8,000 – $15,000/mo</option>
+                <option value="15k_plus">$15,000+/mo</option>
+                <option value="not_sure">Not sure</option>
+              </select>
+              <div class="field-error" data-for="monthly_expenses_range"></div>
+            </div>
+            <div>
+              <label for="desired_monthly_benefit">Desired Monthly Benefit</label>
+              <select id="desired_monthly_benefit" name="desired_monthly_benefit">
+                <option value="">Not sure</option>
+                <option value="under_5k">Under $5,000/mo</option>
+                <option value="5k_10k">$5,000 – $10,000/mo</option>
+                <option value="10k_15k">$10,000 – $15,000/mo</option>
+                <option value="15k_plus">$15,000+/mo</option>
+                <option value="not_sure">Not sure</option>
+              </select>
+            </div>
+            <div>
+              <label for="home_value_range">Home Value</label>
+              <select id="home_value_range" name="home_value_range">
+                <option value="unknown">Unknown</option>
+                <option value="none">None / Rent</option>
+                <option value="under_300k">Under $300,000</option>
+                <option value="300k_600k">$300,000 – $600,000</option>
+                <option value="600k_1m">$600,000 – $1,000,000</option>
+                <option value="1m_plus">$1,000,000+</option>
+              </select>
+            </div>
+            <div>
+              <label for="vehicles_value_range">Vehicles Value</label>
+              <select id="vehicles_value_range" name="vehicles_value_range">
+                <option value="unknown">Unknown</option>
+                <option value="none">None</option>
+                <option value="under_25k">Under $25,000</option>
+                <option value="25k_75k">$25,000 – $75,000</option>
+                <option value="75k_plus">$75,000+</option>
+              </select>
+            </div>
+            <div>
+              <label for="student_loans_range">Student Loan Balance</label>
+              <select id="student_loans_range" name="student_loans_range">
+                <option value="unknown">Unknown</option>
+                <option value="none">None</option>
+                <option value="under_100k">Under $100,000</option>
+                <option value="100_300k">$100,000 – $300,000</option>
+                <option value="300k_plus">$300,000+</option>
+              </select>
+            </div>
+            <div>
+              <label for="assets_range">Total Financial Assets</label>
+              <select id="assets_range" name="assets_range">
+                <option value="unknown">Unknown</option>
+                <option value="under_100k">Under $100,000</option>
+                <option value="100k_500k">$100,000 – $500,000</option>
+                <option value="500k_1m">$500,000 – $1,000,000</option>
+                <option value="1m_plus">$1,000,000+</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <label class="required" for="income_breakdown">Income Breakdown</label>
+            <textarea id="income_breakdown" name="income_breakdown" required maxlength="2000" placeholder="Base salary, bonuses, moonlighting, spouse income, etc."></textarea>
+            <div class="field-error" data-for="income_breakdown"></div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <label for="monthly_expenses_detail">Monthly Expenses Detail</label>
+            <textarea id="monthly_expenses_detail" name="monthly_expenses_detail" maxlength="2000" placeholder="Mortgage, rent, childcare, student loan payments, etc."></textarea>
+          </div>
+          <div class="grid grid-2" style="margin-top: 1rem;">
+            <div>
+              <label for="major_assets">Major Assets</label>
+              <textarea id="major_assets" name="major_assets" maxlength="2000" placeholder="Real estate, investments, retirement accounts"></textarea>
+            </div>
+            <div>
+              <label class="required" for="debts_loans">Debts &amp; Loans</label>
+              <textarea id="debts_loans" name="debts_loans" required maxlength="2000" placeholder="Mortgage, car loans, credit cards, other obligations"></textarea>
+              <div class="field-error" data-for="debts_loans"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: Insurance -->
+      <div class="step-panel" data-step="4">
+        <div class="card">
+          <h2>Insurance History</h2>
+          <p class="step-desc">Existing coverage, prior applications, and beneficiary information.</p>
+          <div class="grid grid-2">
+            <div>
+              <label for="existing_disability_insurance">Existing Disability Insurance?</label>
+              <select id="existing_disability_insurance" name="existing_disability_insurance">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+                <option value="unsure">Unsure</option>
+              </select>
+            </div>
+            <div>
+              <label for="existing_life_insurance">Existing Life Insurance?</label>
+              <select id="existing_life_insurance" name="existing_life_insurance">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+                <option value="unsure">Unsure</option>
+              </select>
+            </div>
+            <div>
+              <label for="health_insurance_status">Health Insurance Status</label>
+              <select id="health_insurance_status" name="health_insurance_status">
+                <option value="employer">Employer-sponsored</option>
+                <option value="marketplace">Marketplace / ACA</option>
+                <option value="spouse">Through spouse</option>
+                <option value="none">None</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="group_coverage_through_employer">Group DI Through Employer?</label>
+              <select id="group_coverage_through_employer" name="group_coverage_through_employer">
+                <option value="unsure">Unsure</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div>
+              <label for="prior_application_denied">Prior Application Denied?</label>
+              <select id="prior_application_denied" name="prior_application_denied">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+                <option value="unsure">Unsure</option>
+              </select>
+            </div>
+          </div>
+          <div id="denialsWrap" class="hidden" style="margin-top: 1rem;">
+            <label class="required" for="prior_applications_denials">Prior Application Denials</label>
+            <textarea id="prior_applications_denials" name="prior_applications_denials" maxlength="2000" placeholder="Describe carrier, date, and reason for denial"></textarea>
+            <div class="field-error" data-for="prior_applications_denials"></div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <label for="existing_policies">Existing Policies</label>
+            <textarea id="existing_policies" name="existing_policies" maxlength="3000" placeholder="Carrier, benefit amount, policy type, year issued"></textarea>
+          </div>
+          <div style="margin-top: 1rem;">
+            <label for="insurance_history">Insurance History</label>
+            <textarea id="insurance_history" name="insurance_history" maxlength="3000" placeholder="Past policies, lapses, changes in coverage"></textarea>
+          </div>
+          <div style="margin-top: 1rem;">
+            <label for="beneficiary_info">Beneficiary Information</label>
+            <textarea id="beneficiary_info" name="beneficiary_info" maxlength="1000" placeholder="Primary beneficiary name and relationship"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5: Medical -->
+      <div class="step-panel" data-step="5">
+        <div class="card">
+          <h2>Medical &amp; Health</h2>
+          <p class="step-desc">Physical metrics and health history for preliminary underwriting review.</p>
+          <div class="grid grid-3" style="margin-bottom: 1rem;">
+            <div>
+              <label class="required" for="height_feet">Height (feet)</label>
+              <input id="height_feet" name="height_feet" type="number" min="4" max="7" required />
+              <div class="field-error" data-for="height_feet"></div>
+            </div>
+            <div>
+              <label class="required" for="height_inches">Height (inches)</label>
+              <input id="height_inches" name="height_inches" type="number" min="0" max="11" required />
+              <div class="field-error" data-for="height_inches"></div>
+            </div>
+            <div>
+              <label class="required" for="weight_lbs">Weight (lbs)</label>
+              <input id="weight_lbs" name="weight_lbs" type="number" min="80" max="500" required />
+              <div class="field-error" data-for="weight_lbs"></div>
+            </div>
+          </div>
+          <div class="grid grid-2">
+            <div>
+              <label class="required" for="tobacco_nicotine">Nicotine / Tobacco Use</label>
+              <select id="tobacco_nicotine" name="tobacco_nicotine" required>
+                <option value="">Select...</option>
+                <option value="never">Never</option>
+                <option value="former">Former user</option>
+                <option value="current">Current user</option>
+              </select>
+              <div class="field-error" data-for="tobacco_nicotine"></div>
+            </div>
+            <div>
+              <label class="required" for="cannabis_use">Cannabis Use</label>
+              <select id="cannabis_use" name="cannabis_use" required>
+                <option value="">Select...</option>
+                <option value="never">Never</option>
+                <option value="occasional">Occasional</option>
+                <option value="regular">Regular</option>
+              </select>
+              <div class="field-error" data-for="cannabis_use"></div>
+            </div>
+            <div>
+              <label class="required" for="alcohol_use">Alcohol Use</label>
+              <select id="alcohol_use" name="alcohol_use" required>
+                <option value="">Select...</option>
+                <option value="none">None</option>
+                <option value="social">Social</option>
+                <option value="moderate">Moderate</option>
+                <option value="heavy">Heavy</option>
+              </select>
+              <div class="field-error" data-for="alcohol_use"></div>
+            </div>
+            <div>
+              <label class="required" for="drug_use">Drug Use</label>
+              <select id="drug_use" name="drug_use" required>
+                <option value="never">Never</option>
+                <option value="former">Former</option>
+                <option value="current">Current</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top: 1.25rem;">
+            <label>Medical Conditions</label>
+            <div class="checkbox-grid" id="conditionsGrid"></div>
+          </div>
+          <div style="margin-top: 0.75rem;">
+            <label for="medical_conditions_other">Other Conditions</label>
+            <textarea id="medical_conditions_other" name="medical_conditions_other" maxlength="3000"></textarea>
+          </div>
+          <div class="grid grid-2" style="margin-top: 0.75rem;">
+            <div>
+              <label for="medications">Current Medications</label>
+              <textarea id="medications" name="medications" maxlength="3000"></textarea>
+            </div>
+            <div>
+              <label for="surgeries">Surgeries / Hospitalizations</label>
+              <textarea id="surgeries" name="surgeries" maxlength="3000"></textarea>
+            </div>
+          </div>
+          <div style="margin-top: 0.75rem;">
+            <label for="family_medical_history">Family Medical History</label>
+            <textarea id="family_medical_history" name="family_medical_history" maxlength="3000" placeholder="Significant family health conditions relevant to underwriting"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 6: Lifestyle -->
+      <div class="step-panel" data-step="6">
+        <div class="card">
+          <h2>Lifestyle &amp; Risk Factors</h2>
+          <p class="step-desc">Activities and lifestyle factors that may affect underwriting.</p>
+          <div class="grid grid-2">
+            <div>
+              <label for="exercise_frequency">Exercise Frequency</label>
+              <select id="exercise_frequency" name="exercise_frequency">
+                <option value="moderate">Moderate</option>
+                <option value="none">None</option>
+                <option value="light">Light</option>
+                <option value="intense">Intense</option>
+              </select>
+            </div>
+            <div>
+              <label for="travel_frequency">Travel Frequency</label>
+              <select id="travel_frequency" name="travel_frequency">
+                <option value="occasional">Occasional</option>
+                <option value="rare">Rare</option>
+                <option value="frequent">Frequent</option>
+                <option value="international">International</option>
+              </select>
+            </div>
+            <div>
+              <label class="required" for="dui_history">DUI / DWI History</label>
+              <select id="dui_history" name="dui_history" required>
+                <option value="">Select...</option>
+                <option value="none">None</option>
+                <option value="yes_over_5_years">Yes — over 5 years ago</option>
+                <option value="yes_within_5_years">Yes — within 5 years</option>
+              </select>
+              <div class="field-error" data-for="dui_history"></div>
+            </div>
+            <div>
+              <label class="required" for="military_status">Military Status</label>
+              <select id="military_status" name="military_status" required>
+                <option value="">Select...</option>
+                <option value="none">None</option>
+                <option value="active_duty">Active duty</option>
+                <option value="reserve">Reserve / National Guard</option>
+                <option value="veteran">Veteran</option>
+              </select>
+              <div class="field-error" data-for="military_status"></div>
+            </div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <label for="hobbies_activities">Hobbies &amp; Activities</label>
+            <textarea id="hobbies_activities" name="hobbies_activities" maxlength="2000" placeholder="Sports, recreational activities, etc."></textarea>
+          </div>
+          <div style="margin-top: 1rem;">
+            <label for="dangerous_activities">Dangerous Activities</label>
+            <textarea id="dangerous_activities" name="dangerous_activities" maxlength="2000" placeholder="Aviation, rock climbing, motorsports, etc."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 7: Disability -->
+      <div class="step-panel" data-step="7">
+        <div class="card">
+          <h2>Disability Details</h2>
+          <p class="step-desc">Your disability status, reason for applying, and work impact.</p>
+          <div class="grid grid-2">
+            <div>
+              <label class="required" for="current_disability_status">Current Disability Status</label>
+              <select id="current_disability_status" name="current_disability_status" required>
+                <option value="">Select...</option>
+                <option value="none">None</option>
+                <option value="currently_disabled">Currently disabled</option>
+                <option value="prior_claim">Prior claim</option>
+                <option value="receiving_benefits">Receiving benefits</option>
+              </select>
+              <div class="field-error" data-for="current_disability_status"></div>
+            </div>
+            <div>
+              <label for="referral_source">How did you hear about us?</label>
+              <select id="referral_source" name="referral_source">
+                <option value="web">Website</option>
+                <option value="colleague">Colleague</option>
+                <option value="financial_advisor">Financial advisor</option>
+                <option value="program_director">Program director</option>
+                <option value="conference">Conference / event</option>
+                <option value="social_media">Social media</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div id="disabilityDetailsWrap" class="hidden" style="margin-top: 1rem;">
+            <label class="required" for="current_disability_details">Current Disability Details</label>
+            <textarea id="current_disability_details" name="current_disability_details" maxlength="2000"></textarea>
+            <div class="field-error" data-for="current_disability_details"></div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <label class="required" for="reason_for_applying">Reason for Applying</label>
+            <textarea id="reason_for_applying" name="reason_for_applying" required maxlength="2000" placeholder="Why are you seeking disability income protection at this time?"></textarea>
+            <div class="field-error" data-for="reason_for_applying"></div>
+          </div>
+          <div class="grid grid-2" style="margin-top: 1rem;">
+            <div>
+              <label for="current_symptoms">Current Symptoms</label>
+              <textarea id="current_symptoms" name="current_symptoms" maxlength="2000"></textarea>
+            </div>
+            <div>
+              <label for="work_impact">Work Impact</label>
+              <textarea id="work_impact" name="work_impact" maxlength="2000" placeholder="How symptoms or conditions affect your work"></textarea>
+            </div>
+          </div>
+          <div style="margin-top: 1rem;">
+            <label for="notes">Additional Notes</label>
+            <textarea id="notes" name="notes" maxlength="2000" placeholder="Timeline, existing quotes, specific coverage questions"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 8: Disclosures -->
+      <div class="step-panel" data-step="8">
+        <div class="card">
+          <h2>Disclosures &amp; Consent</h2>
+          <p class="step-desc">Review how your data is protected and acknowledge required terms before submitting.</p>
+
+          <div class="privacy-block">
+            <h3>Your Privacy &amp; Data Security</h3>
+            <p>Mutual Income Protection takes the protection of your personal and health information seriously. By submitting this form, you acknowledge the following:</p>
+            <ul>
+              <li><strong>Encryption:</strong> Your personal and health information is encrypted at rest and in transit using industry-standard protocols.</li>
+              <li><strong>Limited Use:</strong> Information is collected solely so Jacob Cornell (NPN 20476670) can evaluate disability income insurance options and contact you. SSN and payment details are collected separately during a formal application, if you choose to proceed.</li>
+              <li><strong>No Unauthorized Sharing:</strong> Your data is never sold to third parties and is not shared with carriers without your explicit consent.</li>
+              <li><strong>HIPAA-Aware Practices:</strong> We follow HIPAA-aware data handling procedures for protected health information collected during intake.</li>
+              <li><strong>Your Rights:</strong> You may request access, correction, or deletion of your data at any time by contacting your advisor.</li>
+              <li><strong>Not an Insurance Offer:</strong> This pre-application is not an insurance application, binding quote, or offer of coverage.</li>
+            </ul>
+          </div>
+
+          <div class="consent">
+            <label>
+              <input type="checkbox" id="privacy_consent" name="privacy_consent" required />
+              <span>I consent to the collection, secure storage, and use of my personal and health information as described above for the purpose of evaluating disability income insurance options. I confirm the information provided is accurate to the best of my knowledge.</span>
+            </label>
+            <div class="field-error" data-for="privacy_consent"></div>
+          </div>
+
+          <div class="consent">
+            <label>
+              <input type="checkbox" id="medical_exam_acknowledgment" name="medical_exam_acknowledgment" required />
+              <span>I understand that I may be required to complete a medical examination including blood and urine tests as part of the formal application process.</span>
+            </label>
+            <div class="field-error" data-for="medical_exam_acknowledgment"></div>
+          </div>
+
+          <div class="consent">
+            <label>
+              <input type="checkbox" id="agent_followup_acknowledgment" name="agent_followup_acknowledgment" required />
+              <span>I understand this form collects information only. Jacob Cornell (NPN 20476670), a licensed American agent with 3+ years of experience — guaranteed — will contact me by my preferred method to discuss options and collect any additional details needed for a formal carrier application.</span>
+            </label>
+            <div class="field-error" data-for="agent_followup_acknowledgment"></div>
+          </div>
+
+          <div class="consent">
+            <label>
+              <input type="checkbox" id="premium_target_acknowledgment" name="premium_target_acknowledgment" required />
+              <span>✅ I understand that our goal with Mutual Income Protection is to structure coverage while targeting the cost of insurance to be less than 1-3% of my annual income where possible.</span>
+            </label>
+            <div class="field-error" data-for="premium_target_acknowledgment"></div>
+          </div>
+
+          <div class="disclaimer" style="margin-top: 1rem; margin-bottom: 0;">
+            <strong>Disclaimer:</strong> Advisor: Jacob Cornell, NPN 20476670. Not an insurance application or offer of coverage.
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons" id="navButtons">
+        <button type="button" class="btn btn-secondary hidden" id="prevBtn">← Previous</button>
+        <button type="button" class="btn btn-primary" id="nextBtn">Continue →</button>
+        <button type="submit" class="btn btn-primary hidden" id="submitBtn">Submit Pre-Application</button>
+      </div>
+
+      <div id="formMessage" class="message" role="status" aria-live="polite"></div>
+    </form>
+
+    <div id="successPanel" class="card hidden">
+      <div class="success-panel">
+        <div class="brand-label" style="color: var(--navy);">Mutual Income Protection</div>
+        <h2 style="color: var(--navy); margin-bottom: 0.5rem;">Information Submitted Successfully</h2>
+        <p>Thank you. Jacob Cornell (NPN 20476670) will review your information and contact you by your preferred method shortly.</p>
+        <div class="tier-badge" id="tierBadge"></div>
+        <p class="score-detail" id="scoreDetail"></p>
+        <p class="hint" id="successName"></p>
+        <a href="/" target="_top" onclick="window.top.location.href='/';return false;" class="btn btn-primary" style="display: inline-block; text-decoration: none; max-width: 280px; margin-top: 1rem;">Return to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PHYSICIAN_SPECIALTIES = [
+      "Anesthesiology","Cardiology","Dermatology","Emergency Medicine","Family Medicine",
+      "Gastroenterology","Internal Medicine","Neurology","Neurosurgery","Obstetrics & Gynecology",
+      "Oncology","Ophthalmology","Orthopedic Surgery","Otolaryngology (ENT)","Pathology",
+      "Pediatrics","Physical Medicine & Rehabilitation","Psychiatry","Pulmonology","Radiology",
+      "General Surgery","Urology","Other"
+    ];
+    const DENTAL_SPECIALTIES = [
+      "General Dentistry","Orthodontics","Oral & Maxillofacial Surgery","Periodontics",
+      "Endodontics","Prosthodontics","Pediatric Dentistry","Other"
+    ];
+    const MEDICAL_CONDITIONS = [
+      "None reported","Anxiety / Depression","Asthma","Back / Neck pain","Cancer (history)",
+      "Diabetes","Heart disease","High blood pressure","Migraines","Sleep apnea",
+      "Thyroid disorder","ADHD","Autoimmune disorder","Other"
+    ];
+
+    const STEP_TITLES = [
+      "Step 1 of 8 — Personal Information",
+      "Step 2 of 8 — Occupation & Duties",
+      "Step 3 of 8 — Financial Profile",
+      "Step 4 of 8 — Insurance History",
+      "Step 5 of 8 — Medical & Health",
+      "Step 6 of 8 — Lifestyle & Risk",
+      "Step 7 of 8 — Disability Details",
+      "Step 8 of 8 — Disclosures & Consent"
+    ];
+
+    const ACK_FIELDS = [
+      "privacy_consent",
+      "medical_exam_acknowledgment",
+      "agent_followup_acknowledgment",
+      "premium_target_acknowledgment"
+    ];
+
+    const INT_FIELDS = [
+      "dependents_count","hours_worked_per_week","graduation_year","years_in_practice",
+      "annual_income_amount","height_feet","height_inches","weight_lbs"
+    ];
+
+    let currentStep = 1;
+    const TOTAL_STEPS = 8;
+
+    const form = document.getElementById("leadForm");
+    const message = document.getElementById("formMessage");
+    const successPanel = document.getElementById("successPanel");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const submitBtn = document.getElementById("submitBtn");
+    const progressFill = document.getElementById("progressFill");
+    const stepTitle = document.getElementById("stepTitle");
+    const stepPercent = document.getElementById("stepPercent");
+    const stepDots = document.getElementById("stepDots");
+    const specialtyEl = document.getElementById("specialty");
+    const providerEl = document.getElementById("provider_type");
+    const careerEl = document.getElementById("career_stage");
+    const trainingWrap = document.getElementById("trainingWrap");
+    const disabilityDetailsWrap = document.getElementById("disabilityDetailsWrap");
+    const denialsWrap = document.getElementById("denialsWrap");
+    const conditionsGrid = document.getElementById("conditionsGrid");
+    function fillSpecialties(list) {
+      const current = specialtyEl.value;
+      specialtyEl.innerHTML = '<option value="">Select...</option>';
+      list.forEach((s) => {
+        const opt = document.createElement("option");
+        opt.value = s;
+        opt.textContent = s;
+        specialtyEl.appendChild(opt);
+      });
+      if (list.includes(current)) specialtyEl.value = current;
+    }
+
+    function buildConditions() {
+      conditionsGrid.innerHTML = "";
+      MEDICAL_CONDITIONS.forEach((c) => {
+        const id = "cond_" + c.replace(/\W+/g, "_");
+        const label = document.createElement("label");
+        label.innerHTML = `<input type="checkbox" name="medical_conditions" value="${c}" id="${id}" /> ${c}`;
+        conditionsGrid.appendChild(label);
+      });
+    }
+
+    function toggleTraining() {
+      const stage = careerEl.value;
+      const show = stage === "resident" || stage === "fellow";
+      trainingWrap.classList.toggle("hidden", !show);
+      document.getElementById("training_program").required = show;
+    }
+
+    function toggleDisabilityDetails() {
+      const status = document.getElementById("current_disability_status").value;
+      const show = status && status !== "none";
+      disabilityDetailsWrap.classList.toggle("hidden", !show);
+      document.getElementById("current_disability_details").required = show;
+    }
+
+    function toggleDenials() {
+      const denied = document.getElementById("prior_application_denied").value;
+      const show = denied === "yes";
+      denialsWrap.classList.toggle("hidden", !show);
+      document.getElementById("prior_applications_denials").required = show;
+    }
+
+    function showFieldError(name, text) {
+      const err = document.querySelector(`.field-error[data-for="${name}"]`);
+      const field = form.elements[name] || document.getElementById(name);
+      if (err) {
+        err.textContent = text || "";
+        err.classList.toggle("show", !!text);
+      }
+      if (field && field.classList) field.classList.toggle("invalid", !!text);
+    }
+
+    function clearStepErrors(step) {
+      const panel = document.querySelector(`.step-panel[data-step="${step}"]`);
+      panel.querySelectorAll(".field-error").forEach((el) => {
+        el.textContent = "";
+        el.classList.remove("show");
+      });
+      panel.querySelectorAll(".invalid").forEach((el) => el.classList.remove("invalid"));
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+
+
+    function requireField(name, msg) {
+      const el = form.elements[name] || document.getElementById(name);
+      const val = el ? (el.value || "").trim() : "";
+      if (!val) {
+        showFieldError(name, msg || "This field is required.");
+        return false;
+      }
+      return true;
+    }
+
+    function requireMinLength(name, min, msg) {
+      const el = form.elements[name];
+      const val = el ? el.value.trim() : "";
+      if (val.length < min) {
+        showFieldError(name, msg);
+        return false;
+      }
+      return true;
+    }
+
+    function validateStep(step) {
+      clearStepErrors(step);
+      let valid = true;
+
+      if (step === 1) {
+        if (!requireField("full_name", "Full legal name is required.")) valid = false;
+        if (!form.date_of_birth.value) { showFieldError("date_of_birth", "Date of birth is required."); valid = false; }
+        const email = form.email.value.trim();
+        if (!email || !isValidEmail(email)) { showFieldError("email", "A valid email address is required."); valid = false; }
+        if (form.phone.value.replace(/\D/g, "").length < 10) { showFieldError("phone", "A valid phone number (at least 10 digits) is required."); valid = false; }
+        if (!form.contact_preference.value) { showFieldError("contact_preference", "Please select a contact preference."); valid = false; }
+        if (form.address_street.value.trim().length < 3) { showFieldError("address_street", "Street address is required."); valid = false; }
+        if (form.address_city.value.trim().length < 2) { showFieldError("address_city", "City is required."); valid = false; }
+        if (form.address_state.value.trim().length < 2) { showFieldError("address_state", "State is required."); valid = false; }
+        if (form.address_zip.value.trim().length < 5) { showFieldError("address_zip", "ZIP code is required."); valid = false; }
+      }
+
+      if (step === 2) {
+        ["provider_type","career_stage","specialty","occupation_title","place_of_work","work_city","work_state"].forEach((f) => {
+          if (!requireField(f)) valid = false;
+        });
+        const hours = parseInt(form.hours_worked_per_week.value, 10);
+        if (isNaN(hours) || hours < 1 || hours > 120) {
+          showFieldError("hours_worked_per_week", "Enter hours worked per week (1–120).");
+          valid = false;
+        }
+        const stage = careerEl.value;
+        if ((stage === "resident" || stage === "fellow") && !form.training_program.value.trim()) {
+          showFieldError("training_program", "Training program is required for residents and fellows.");
+          valid = false;
+        }
+        if (!requireMinLength("duties_performed", 10, "Describe your duties (at least 10 characters).")) valid = false;
+        if (!requireMinLength("income_sources", 5, "Describe your income sources.")) valid = false;
+        if (!requireMinLength("key_responsibilities", 5, "Describe your key responsibilities.")) valid = false;
+      }
+
+      if (step === 3) {
+        const income = parseInt(form.annual_income_amount.value, 10);
+        if (isNaN(income) || income < 0) {
+          showFieldError("annual_income_amount", "Annual income is required.");
+          valid = false;
+        }
+        if (!form.monthly_expenses_range.value) {
+          showFieldError("monthly_expenses_range", "Monthly expenses range is required.");
+          valid = false;
+        }
+        if (!requireMinLength("income_breakdown", 5, "Provide an income breakdown.")) valid = false;
+        if (!requireMinLength("debts_loans", 3, "Describe your debts and loans.")) valid = false;
+      }
+
+      if (step === 4) {
+        if (form.prior_application_denied.value === "yes" && !form.prior_applications_denials.value.trim()) {
+          showFieldError("prior_applications_denials", "Please describe prior application denials.");
+          valid = false;
+        }
+      }
+
+      if (step === 5) {
+        const hf = parseInt(form.height_feet.value, 10);
+        const hi = parseInt(form.height_inches.value, 10);
+        const wl = parseInt(form.weight_lbs.value, 10);
+        if (isNaN(hf) || hf < 4 || hf > 7) { showFieldError("height_feet", "Enter height in feet (4–7)."); valid = false; }
+        if (isNaN(hi) || hi < 0 || hi > 11) { showFieldError("height_inches", "Enter height in inches (0–11)."); valid = false; }
+        if (isNaN(wl) || wl < 80 || wl > 500) { showFieldError("weight_lbs", "Enter weight in lbs (80–500)."); valid = false; }
+        ["tobacco_nicotine","cannabis_use","alcohol_use"].forEach((f) => {
+          if (!form.elements[f].value) { showFieldError(f, "Please select an option."); valid = false; }
+        });
+      }
+
+      if (step === 6) {
+        ["dui_history","military_status"].forEach((f) => {
+          if (!form.elements[f].value) { showFieldError(f, "Please select an option."); valid = false; }
+        });
+      }
+
+      if (step === 7) {
+        if (!form.current_disability_status.value) {
+          showFieldError("current_disability_status", "Please select your disability status.");
+          valid = false;
+        }
+        const status = form.current_disability_status.value;
+        if (status && status !== "none" && !form.current_disability_details.value.trim()) {
+          showFieldError("current_disability_details", "Please describe your disability status.");
+          valid = false;
+        }
+        if (!requireMinLength("reason_for_applying", 10, "Please explain your reason for applying (at least 10 characters).")) valid = false;
+      }
+
+      if (step === 8) {
+        ACK_FIELDS.forEach((f) => {
+          if (!document.getElementById(f).checked) {
+            showFieldError(f, "This acknowledgment is required.");
+            valid = false;
+          }
+        });
+      }
+
+      if (!valid) {
+        message.className = "message error";
+        message.textContent = "Please correct the highlighted fields before continuing.";
+        message.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } else {
+        message.className = "message";
+        message.textContent = "";
+      }
+
+      return valid;
+    }
+
+    function updateUI() {
+      document.querySelectorAll(".step-panel").forEach((p) => {
+        p.classList.toggle("active", parseInt(p.dataset.step, 10) === currentStep);
+      });
+
+      stepTitle.textContent = STEP_TITLES[currentStep - 1];
+      const pct = Math.round((currentStep / TOTAL_STEPS) * 100);
+      stepPercent.textContent = pct + "%";
+      progressFill.style.width = pct + "%";
+
+      stepDots.querySelectorAll("span").forEach((dot) => {
+        const s = parseInt(dot.dataset.step, 10);
+        dot.classList.toggle("active", s === currentStep);
+        dot.classList.toggle("done", s < currentStep);
+      });
+
+      prevBtn.classList.toggle("hidden", currentStep === 1);
+      nextBtn.classList.toggle("hidden", currentStep === TOTAL_STEPS);
+      submitBtn.classList.toggle("hidden", currentStep !== TOTAL_STEPS);
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function buildPayload() {
+      const fd = new FormData(form);
+      const payload = {};
+
+      const skipKeys = new Set([...ACK_FIELDS, "medical_conditions"]);
+
+      for (const [k, v] of fd.entries()) {
+        if (skipKeys.has(k)) continue;
+        if (v !== "") payload[k] = v;
+      }
+
+      payload.medical_conditions = [...form.querySelectorAll('input[name="medical_conditions"]:checked')].map((c) => c.value);
+      if (!payload.medical_conditions.length) payload.medical_conditions = ["None reported"];
+
+      ACK_FIELDS.forEach((f) => {
+        payload[f] = document.getElementById(f).checked;
+      });
+
+      payload.gender = payload.gender || null;
+      payload.address_line2 = payload.address_line2 || null;
+      payload.dependents_details = payload.dependents_details || null;
+      payload.work_zip = payload.work_zip || null;
+      payload.license_state = payload.license_state || null;
+      payload.training_program = payload.training_program || null;
+      payload.specialized_skills = payload.specialized_skills || null;
+      payload.occupation_details = payload.occupation_details || null;
+      payload.monthly_expenses_detail = payload.monthly_expenses_detail || null;
+      payload.major_assets = payload.major_assets || null;
+      payload.desired_monthly_benefit = payload.desired_monthly_benefit || null;
+      payload.existing_policies = payload.existing_policies || null;
+      payload.insurance_history = payload.insurance_history || null;
+      payload.prior_applications_denials = payload.prior_applications_denials || null;
+      payload.beneficiary_info = payload.beneficiary_info || null;
+      payload.medical_conditions_other = payload.medical_conditions_other || null;
+      payload.medications = payload.medications || null;
+      payload.surgeries = payload.surgeries || null;
+      payload.family_medical_history = payload.family_medical_history || null;
+      payload.hobbies_activities = payload.hobbies_activities || null;
+      payload.dangerous_activities = payload.dangerous_activities || null;
+      payload.current_disability_details = payload.current_disability_details || null;
+      payload.current_symptoms = payload.current_symptoms || null;
+      payload.work_impact = payload.work_impact || null;
+      payload.notes = payload.notes || null;
+
+      INT_FIELDS.forEach((f) => {
+        if (payload[f] !== undefined && payload[f] !== "") {
+          payload[f] = parseInt(payload[f], 10);
+        } else if (f === "graduation_year" || f === "years_in_practice") {
+          payload[f] = null;
+        }
+      });
+
+      if (payload.graduation_year === undefined || payload.graduation_year === "") payload.graduation_year = null;
+      if (payload.years_in_practice === undefined || payload.years_in_practice === "") payload.years_in_practice = null;
+
+      return payload;
+    }
+
+    providerEl.addEventListener("change", () => {
+      fillSpecialties(providerEl.value === "dentist" ? DENTAL_SPECIALTIES : PHYSICIAN_SPECIALTIES);
+    });
+    careerEl.addEventListener("change", toggleTraining);
+    document.getElementById("current_disability_status").addEventListener("change", toggleDisabilityDetails);
+    document.getElementById("prior_application_denied").addEventListener("change", toggleDenials);
+
+    prevBtn.addEventListener("click", () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateUI();
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (validateStep(currentStep)) {
+        currentStep++;
+        updateUI();
+      }
+    });
+
+    fillSpecialties(PHYSICIAN_SPECIALTIES);
+    buildConditions();
+    toggleTraining();
+    toggleDisabilityDetails();
+    toggleDenials();
+    updateUI();
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!validateStep(8)) return;
+
+      message.className = "message";
+      message.textContent = "";
+      submitBtn.disabled = true;
+      nextBtn.disabled = true;
+      prevBtn.disabled = true;
+
+      const payload = buildPayload();
+
+      try {
+        window.parent.postMessage({
+          type: "streamlit:setComponentValue",
+          value: payload
+        }, "*");
+        message.className = "message";
+        message.textContent = "Submitting your application…";
+      } catch (err) {
+        message.className = "message error";
+        message.textContent = err.message;
+        submitBtn.disabled = false;
+        nextBtn.disabled = false;
+        prevBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

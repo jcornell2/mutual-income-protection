@@ -26,7 +26,6 @@ load_dotenv(ROOT / ".env")
 from app.schemas import LeadCreate
 from app.services import create_lead, lead_to_response
 from frontend.db import ensure_db, get_session
-from frontend.html_pages import load_intake_html
 from frontend.intake_widget import render_intake_form
 
 CUSTOMER_CSS = """
@@ -98,11 +97,6 @@ def _process_submission(form_payload: dict[str, Any]) -> None:
 
 
 ensure_db()
-st.set_page_config(
-    page_title="Start My Protected Application | Mutual Income Protection",
-    page_icon="🛡️",
-    layout="wide",
-)
 st.markdown(CUSTOMER_CSS, unsafe_allow_html=True)
 
 if st.session_state.get("submission_success"):
@@ -127,7 +121,12 @@ if st.session_state.get("submission_success"):
         st.rerun()
     st.stop()
 
-raw_payload = render_intake_form(load_intake_html(), height=2400)
+try:
+    raw_payload = render_intake_form(height=2400)
+except Exception as exc:
+    st.error("The application form failed to load. Please refresh the page.")
+    st.caption(f"Technical detail: {exc}")
+    st.stop()
 form_payload = _normalize_payload(raw_payload)
 
 if not form_payload:

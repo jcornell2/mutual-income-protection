@@ -8,6 +8,8 @@ from typing import Any
 
 import streamlit.components.v1 as components
 
+from frontend.form_static import ensure_apply_form_static
+
 _BRIDGE_DIR = Path(__file__).resolve().parent / "intake_bridge"
 _intake_component = components.declare_component(
     "mip_intake_bridge",
@@ -15,10 +17,10 @@ _intake_component = components.declare_component(
 )
 
 
-def render_intake_form(html: str, *, height: int = 2400) -> dict[str, Any] | None:
-    """Render intake HTML and return submitted payload dict, if any."""
+def render_intake_form(*, height: int = 2400) -> dict[str, Any] | None:
+    """Render intake form iframe and return submitted payload dict, if any."""
+    ensure_apply_form_static()
     result = _intake_component(
-        html=html,
         height=height,
         key="mip_intake_form",
         default=None,
