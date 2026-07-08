@@ -37,15 +37,21 @@ def _flatten_secrets(prefix: str, value: object) -> list[tuple[str, str]]:
     return [(prefix.rstrip("."), str(value))]
 
 
-def _safe_secret_map() -> dict[str, Any]:
-    """Return secrets as a plain dict without raising when unset or invalid."""
+def _safe_secret_map() -> tuple[dict[str, Any], str | None]:
+    """Return secrets as a plain dict; second value is an error hint if read failed."""
     st = _get_st()
     try:
         if not st.secrets.load_if_toml_exists():
-            return {}
-        return st.secrets.to_dict()
-    except Exception:
-        return {}
+            return {}, None
+        secrets_map = st.secrets.to_dict()
+        if not secrets_map:
+            return {}, (
+                "Secrets file is empty or contains only comments. "
+                "Paste all lines from exports/streamlit-secrets.toml (not just the header)."
+            )
+        return secrets_map, None
+    except Exception as exc:
+        return {}, f"Could not read secrets: {exc}"
 
 
 def _read_from_map(secrets_map: dict[str, Any], key: str) -> str:
@@ -71,7 +77,7 @@ def _find_encryption_key() -> str:
     if key:
         return key
 
-    secrets_map = _safe_secret_map()
+    secrets_map, _ = _safe_secret_map()
     key = _read_from_map(secrets_map, "ENCRYPTION_KEY")
     if key:
         return key
@@ -83,7 +89,7 @@ def _find_encryption_key() -> str:
 
 
 def _apply_streamlit_secrets() -> None:
-    secrets_map = _safe_secret_map()
+    secrets_map, _ = _safe_secret_map()
     if not secrets_map:
         return
 
@@ -132,16 +138,15 @@ def secrets_diagnostics() -> dict[str, Any]:
         status["parse_error"] = str(exc)
         return status
 
-    try:
-        secrets_map = _safe_secret_map()
-        status["top_level_keys"] = sorted(str(k) for k in secrets_map.keys())
-        if not secrets_map and status["secrets_file_loaded"]:
-            status["parse_error"] = (
-                "Secrets file exists but could not be read. "
-                "Check TOML syntax in Streamlit Cloud → Secrets."
-            )
-    except Exception as exc:
-        status["parse_error"] = str(exc)
+    secrets_map, read_error = _safe_secret_map()
+    status["top_level_keys"] = sorted(str(k) for k in secrets_map.keys())
+    if read_error:
+        status["parse_error"] = read_error
+    elif not secrets_map and status["secrets_file_loaded"]:
+        status["parse_error"] = (
+            "Secrets file loaded but has 0 keys. Paste every line from "
+            "exports/streamlit-secrets.toml — not .env format, not comments only."
+        )
 
     bootstrap_env()
     status["encryption_key_found"] = bool(_find_encryption_key())

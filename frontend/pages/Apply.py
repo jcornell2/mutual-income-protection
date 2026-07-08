@@ -131,12 +131,14 @@ if not encryption_key_configured():
         """
         **Setup (one time)**
 
-        1. On your PC, open `exports/streamlit-secrets.toml`  
-           (or run `python scripts/export_streamlit_secrets.py` to create it)
-        2. Go to [share.streamlit.io](https://share.streamlit.io) → your app → **Settings** → **Secrets**
-        3. Delete everything in the box, paste the **entire file**, click **Save**
-        4. Click **Reboot app** and wait ~2 minutes
-        5. Confirm **Main file path** is `streamlit_app.py`
+        1. Run `python scripts/export_streamlit_secrets.py` on your PC
+        2. Open `exports/streamlit-secrets.toml` — copy **all 11 lines** (every `KEY = "value"` line)
+        3. [share.streamlit.io](https://share.streamlit.io) → your app → **Settings** → **Secrets**
+        4. Delete everything in the box, paste, **Save**, then **Reboot app**
+        5. Diagnostics should show **11 top-level keys** including `ENCRYPTION_KEY`
+
+        **Wrong:** `.env` style (`ENCRYPTION_KEY=abc`) or pasting only comment lines at the top.
+        **Right:** TOML style (`ENCRYPTION_KEY = "abc"`) with all 11 keys.
         """
     )
     with st.expander("Administrator diagnostics (no secret values shown)"):

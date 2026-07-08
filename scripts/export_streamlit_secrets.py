@@ -51,18 +51,13 @@ def main() -> None:
     if missing:
         raise SystemExit(f"Missing in .env: {', '.join(missing)}")
 
-    lines = [
-        "# Paste this into Streamlit Cloud → App settings → Secrets",
-        "# https://share.streamlit.io → your app → Settings → Secrets",
-        "",
-    ]
-    for key in KEYS:
-        lines.append(f"{key} = {_toml_value(key, env[key])}")
+    lines = [f"{key} = {_toml_value(key, env[key])}" for key in KEYS]
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"Wrote {OUT_PATH}")
-    print("Copy the full file contents into Streamlit Cloud Secrets, then reboot the app.")
+    print(f"Wrote {OUT_PATH} ({len(lines)} keys)")
+    print("Copy EVERY line (all keys) into Streamlit Cloud -> Settings -> Secrets.")
+    print("Do NOT paste .env format (KEY=value). Use this TOML file exactly.")
 
 
 if __name__ == "__main__":
