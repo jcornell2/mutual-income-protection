@@ -18,7 +18,11 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from frontend.secrets_bootstrap import bootstrap_env, encryption_key_configured
+from frontend.secrets_bootstrap import (
+    bootstrap_env,
+    encryption_key_configured,
+    secrets_diagnostics,
+)
 
 bootstrap_env()
 
@@ -118,15 +122,32 @@ ensure_db()
 st.markdown(CUSTOMER_CSS, unsafe_allow_html=True)
 
 if not encryption_key_configured():
+    diag = secrets_diagnostics()
     st.error(
         "Application intake is not fully configured on the server. "
-        "The administrator must add **ENCRYPTION_KEY** in Streamlit Cloud → "
-        "**App settings → Secrets**, then reboot the app."
+        "Add secrets in Streamlit Cloud, then **Reboot app**."
     )
-    st.caption(
-        "Local setup: run `python scripts/export_streamlit_secrets.py` and paste "
-        "`exports/streamlit-secrets.toml` into Streamlit Secrets."
+    st.markdown(
+        """
+        **Setup (one time)**
+
+        1. On your PC, open `exports/streamlit-secrets.toml`  
+           (or run `python scripts/export_streamlit_secrets.py` to create it)
+        2. Go to [share.streamlit.io](https://share.streamlit.io) → your app → **Settings** → **Secrets**
+        3. Delete everything in the box, paste the **entire file**, click **Save**
+        4. Click **Reboot app** and wait ~2 minutes
+        5. Confirm **Main file path** is `streamlit_app.py`
+        """
     )
+    with st.expander("Administrator diagnostics (no secret values shown)"):
+        st.write(f"Secrets file loaded: **{diag['secrets_file_loaded']}**")
+        st.write(f"ENCRYPTION_KEY found: **{diag['encryption_key_found']}**")
+        if diag["top_level_keys"]:
+            st.write(f"Top-level keys in Secrets: `{', '.join(diag['top_level_keys'])}`")
+        else:
+            st.write("Top-level keys in Secrets: *(none — Secrets box is empty or not saved)*")
+        if diag["parse_error"]:
+            st.warning(f"Parse error: {diag['parse_error']}")
     st.stop()
 
 if st.session_state.get("submission_success"):
