@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / "app" / "static"
@@ -37,21 +38,8 @@ STREAMLIT_SUBMIT_HANDLER = """
 """
 
 
-STREAMLIT_NAVIGATE_APPLY = (
-    'href="#" onclick="'
-    "event.preventDefault();"
-    "window.parent.postMessage({type:'streamlit:setComponentValue',value:'navigate_apply'},'*');"
-    '"'
-)
-
-
-def _patch_landing_nav(html: str) -> str:
-    """Landing CTAs must message Streamlit — iframe blocks normal link navigation."""
-    return html.replace('href="/apply"', STREAMLIT_NAVIGATE_APPLY)
-
-
 def _patch_streamlit_links(html: str) -> str:
-    """Break out of Streamlit component iframes when navigating between pages."""
+    """Patch links used inside components.html iframes (intake form)."""
     html = html.replace(
         'href="/"',
         'href="/" target="_top" onclick="window.top.location.href=\'/\';return false;"',
@@ -60,8 +48,16 @@ def _patch_streamlit_links(html: str) -> str:
 
 
 def load_landing_html() -> str:
+    """Return landing styles + body for st.html (not iframed — links work normally)."""
     html = (STATIC_DIR / "landing.html").read_text(encoding="utf-8")
-    return _patch_landing_nav(html)
+    styles = "\n".join(
+        re.findall(r"<style[^>]*>.*?</style>", html, flags=re.DOTALL | re.IGNORECASE)
+    )
+    body_match = re.search(r"<body[^>]*>(.*)</body>", html, flags=re.DOTALL | re.IGNORECASE)
+    if not body_match:
+        raise RuntimeError("landing.html is missing <body>")
+    body = body_match.group(1).replace('href="/apply"', 'href="/Apply"')
+    return f"{styles}\n{body}"
 
 
 def load_intake_html() -> str:
