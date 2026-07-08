@@ -22,10 +22,10 @@ STREAMLIT_SUBMIT_REDIRECT = """
 
       try {
         const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-        const topWin = window.top || window;
-        const url = new URL(topWin.location.href);
+        const applyPath = window.location.pathname.includes("Apply") ? window.location.pathname : "/Apply";
+        const url = new URL(applyPath, window.location.origin);
         url.searchParams.set("lead_data", encoded);
-        topWin.location.href = url.toString();
+        window.location.assign(url.toString());
       } catch (err) {
         message.className = "message error";
         message.textContent = err.message;
@@ -66,20 +66,6 @@ _LEGACY_SUBMIT_POSTMESSAGE = """    form.addEventListener("submit", async (e) =>
 
 
 def _patch_streamlit_links(html: str) -> str:
-    """Links inside the iframe should navigate the Streamlit parent page."""
-    html = html.replace('class="back-link" href="/"', 'class="back-link" href="/" target="_parent"')
-    html = html.replace(
-        'href="/" class="btn btn-primary" style="display: inline-block;',
-        'href="/" target="_parent" class="btn btn-primary" style="display: inline-block;',
-    )
-    html = html.replace(
-        "window.location.href = url.toString();",
-        "(window.top || window).location.href = url.toString();",
-    )
-    html = html.replace(
-        "const url = new URL(window.location.href);",
-        "const url = new URL((window.top || window).location.href);",
-    )
     return html
 
 

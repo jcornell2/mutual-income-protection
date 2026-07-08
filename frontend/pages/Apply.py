@@ -11,7 +11,6 @@ from pathlib import Path
 from typing import Any
 
 import streamlit as st
-import streamlit.components.v1 as components
 from pydantic import ValidationError
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -29,7 +28,7 @@ load_dotenv(ROOT / ".env")
 from app.schemas import LeadCreate
 from app.services import create_lead, lead_to_response
 from frontend.db import ensure_db, get_session
-from frontend.html_pages import load_intake_html
+from frontend.html_pages import load_intake_html_fragment
 
 CUSTOMER_CSS = """
 <style>
@@ -133,5 +132,5 @@ if lead_data_param:
             _process_submission(form_payload)
     st.stop()
 
-# Full HTML in an iframe so step navigation JS runs reliably (st.html sanitization can break it).
-components.html(load_intake_html(), height=1800, scrolling=True)
+# Same-page embed (not iframe) so final submit can redirect with ?lead_data=…
+st.html(load_intake_html_fragment(), width="stretch", unsafe_allow_javascript=True)

@@ -1438,10 +1438,10 @@
 
         try {
           const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-          const topWin = window.top || window;
-          const url = new URL(topWin.location.href);
+          const applyPath = window.location.pathname.includes("Apply") ? window.location.pathname : "/Apply";
+          const url = new URL(applyPath, window.location.origin);
           url.searchParams.set("lead_data", encoded);
-          topWin.location.href = url.toString();
+          window.location.assign(url.toString());
         } catch (err) {
           message.className = "message error";
           message.textContent = err.message;
