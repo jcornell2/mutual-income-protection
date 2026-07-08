@@ -1402,31 +1402,15 @@
       const payload = buildPayload();
 
       try {
-        const res = await fetch("/api/leads", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          const detail = Array.isArray(data.detail)
-            ? data.detail.map((d) => d.msg || (d.loc ? d.loc.join(".") + ": " + d.msg : JSON.stringify(d))).join("; ")
-            : (data.detail || "Submission failed.");
-          throw new Error(detail);
-        }
-
-        const lastName = payload.full_name.split(" ").slice(-1)[0];
-        form.classList.add("hidden");
-        document.getElementById("topDisclaimer").classList.add("hidden");
-        document.getElementById("navButtons").classList.add("hidden");
-        successPanel.classList.remove("hidden");
-        document.getElementById("tierBadge").textContent = "Score Tier: " + (data.score_tier || "Pending");
-        document.getElementById("scoreDetail").textContent = data.score != null ? "Preliminary Score: " + data.score + " / 100" : "";
-        document.getElementById("successName").textContent = "Thank you, Dr. " + lastName + ". Reference ID: #" + data.id;
+        window.parent.postMessage({
+          type: "streamlit:setComponentValue",
+          value: payload
+        }, "*");
+        message.className = "message";
+        message.textContent = "Submitting your application…";
       } catch (err) {
         message.className = "message error";
         message.textContent = err.message;
-      } finally {
         submitBtn.disabled = false;
         nextBtn.disabled = false;
         prevBtn.disabled = false;

@@ -6,9 +6,9 @@ import json
 import sys
 from datetime import date
 from pathlib import Path
+from typing import Any
 
 import streamlit as st
-import streamlit.components.v1 as components
 from pydantic import ValidationError
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -27,6 +27,7 @@ from app.schemas import LeadCreate
 from app.services import create_lead, lead_to_response
 from frontend.db import ensure_db, get_session
 from frontend.html_pages import load_intake_html
+from frontend.intake_widget import render_intake_form
 
 CUSTOMER_CSS = """
 <style>
@@ -40,6 +41,61 @@ header[data-testid="stHeader"] { opacity: 0; pointer-events: none; }
 iframe { border: none !important; }
 </style>
 """
+
+
+def _normalize_payload(raw: Any) -> dict[str, Any] | None:
+    if raw is None:
+        return None
+    if isinstance(raw, dict):
+        return raw
+    if isinstance(raw, str):
+        try:
+            parsed = json.loads(raw)
+        except json.JSONDecodeError:
+            return None
+        return parsed if isinstance(parsed, dict) else None
+    return None
+
+
+def _process_submission(form_payload: dict[str, Any]) -> None:
+    if form_payload.get("date_of_birth") and isinstance(form_payload["date_of_birth"], str):
+        form_payload["date_of_birth"] = date.fromisoformat(form_payload["date_of_birth"])
+
+    try:
+        lead_data = LeadCreate.model_validate(form_payload)
+    except ValidationError as exc:
+        st.error("Please correct the following and resubmit:")
+        for err in exc.errors():
+            loc = " → ".join(str(x) for x in err.get("loc", []))
+            st.write(f"- **{loc}:** {err.get('msg', 'invalid')}")
+        return
+    except Exception as exc:
+        st.error(str(exc))
+        return
+
+    try:
+        with get_session() as db:
+            lead = create_lead(db, lead_data, actor="public_streamlit")
+            response = lead_to_response(lead)
+    except ValueError as exc:
+        st.error(str(exc))
+        return
+    except Exception as exc:
+        st.error(
+            "We could not save your application. If this is a new deployment, "
+            "confirm ENCRYPTION_KEY is set in Streamlit Secrets."
+        )
+        st.caption(f"Details: {exc}")
+        return
+
+    st.session_state["submission_success"] = {
+        "id": response.id,
+        "name": response.full_name,
+        "score": response.score,
+        "tier": response.score_tier,
+    }
+    st.rerun()
+
 
 ensure_db()
 st.set_page_config(
@@ -71,50 +127,15 @@ if st.session_state.get("submission_success"):
         st.rerun()
     st.stop()
 
-payload = components.html(load_intake_html(), height=2400, scrolling=True)
+raw_payload = render_intake_form(load_intake_html(), height=2400)
+form_payload = _normalize_payload(raw_payload)
 
-if not payload:
+if not form_payload:
     st.stop()
 
-if isinstance(payload, str):
-    try:
-        payload = json.loads(payload)
-    except json.JSONDecodeError:
-        st.error("Invalid submission format.")
-        st.stop()
-
-submission_key = json.dumps(payload, sort_keys=True, default=str)
+submission_key = json.dumps(form_payload, sort_keys=True, default=str)
 if st.session_state.get("processed_submission_key") == submission_key:
     st.stop()
 
-if payload.get("date_of_birth") and isinstance(payload["date_of_birth"], str):
-    payload["date_of_birth"] = date.fromisoformat(payload["date_of_birth"])
-
-try:
-    lead_data = LeadCreate.model_validate(payload)
-except ValidationError as exc:
-    st.error("Please correct the following and resubmit:")
-    for err in exc.errors():
-        loc = " → ".join(str(x) for x in err.get("loc", []))
-        st.write(f"- **{loc}:** {err.get('msg', 'invalid')}")
-    st.stop()
-except Exception as exc:
-    st.error(str(exc))
-    st.stop()
-
-try:
-    with get_session() as db:
-        lead = create_lead(db, lead_data, actor="public_streamlit")
-        response = lead_to_response(lead)
-except ValueError as exc:
-    st.error(str(exc))
-    st.stop()
-
 st.session_state["processed_submission_key"] = submission_key
-st.session_state["submission_success"] = {
-    "id": response.id,
-    "name": response.full_name,
-    "score": response.score,
-    "tier": response.score_tier,
-}
-st.rerun()
+_process_submission(form_payload)

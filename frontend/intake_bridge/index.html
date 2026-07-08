@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./streamlit-component-lib.js"></script>
+  </head>
+  <body style="margin:0;padding:0;">
+    <iframe
+      id="intake"
+      title="Mutual Income Protection intake form"
+      style="width:100%;border:0;display:block;"
+      scrolling="yes"
+    ></iframe>
+    <script>
+      const iframe = document.getElementById("intake");
+
+      function onRender(event) {
+        const args = event.detail.args || {};
+        const height = args.height || 2400;
+        iframe.style.height = height + "px";
+        iframe.srcdoc = args.html || "";
+        Streamlit.setFrameHeight(height);
+      }
+
+      Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, onRender);
+      Streamlit.setComponentReady();
+
+      window.addEventListener("message", (event) => {
+        const data = event.data || {};
+        if (data.type === "streamlit:setComponentValue") {
+          Streamlit.setComponentValue(data.value);
+        }
+      });
+    </script>
+  </body>
+</html>
