@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import base64
+import hashlib
 import json
 import sys
 from datetime import date
@@ -26,7 +28,7 @@ load_dotenv(ROOT / ".env")
 from app.schemas import LeadCreate
 from app.services import create_lead, lead_to_response
 from frontend.db import ensure_db, get_session
-from frontend.intake_widget import render_intake_form
+from frontend.html_pages import load_intake_html_fragment
 
 CUSTOMER_CSS = """
 <style>
@@ -37,23 +39,16 @@ header[data-testid="stHeader"] { opacity: 0; pointer-events: none; }
 .block-container { padding-top: 0; padding-left: 0; padding-right: 0; max-width: 100%; }
 .main .block-container { padding-top: 0; }
 .stApp h1, .stApp h2, .stApp h3 { color: inherit; }
-iframe { border: none !important; }
 </style>
 """
 
 
-def _normalize_payload(raw: Any) -> dict[str, Any] | None:
-    if raw is None:
-        return None
-    if isinstance(raw, dict):
-        return raw
-    if isinstance(raw, str):
-        try:
-            parsed = json.loads(raw)
-        except json.JSONDecodeError:
-            return None
-        return parsed if isinstance(parsed, dict) else None
-    return None
+def _decode_lead_param(param: str) -> dict[str, Any]:
+    decoded = base64.b64decode(param)
+    payload = json.loads(decoded.decode("utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("Submission payload must be a JSON object.")
+    return payload
 
 
 def _process_submission(form_payload: dict[str, Any]) -> None:
@@ -81,8 +76,7 @@ def _process_submission(form_payload: dict[str, Any]) -> None:
         return
     except Exception as exc:
         st.error(
-            "We could not save your application. If this is a new deployment, "
-            "confirm ENCRYPTION_KEY is set in Streamlit Secrets."
+            "We could not save your application. Confirm ENCRYPTION_KEY is set in Streamlit Secrets."
         )
         st.caption(f"Details: {exc}")
         return
@@ -93,6 +87,7 @@ def _process_submission(form_payload: dict[str, Any]) -> None:
         "score": response.score,
         "tier": response.score_tier,
     }
+    st.query_params.clear()
     st.rerun()
 
 
@@ -121,20 +116,20 @@ if st.session_state.get("submission_success"):
         st.rerun()
     st.stop()
 
-try:
-    raw_payload = render_intake_form(height=2400)
-except Exception as exc:
-    st.error("The application form failed to load. Please refresh the page.")
-    st.caption(f"Technical detail: {exc}")
+lead_data_param = st.query_params.get("lead_data")
+if lead_data_param:
+    submission_key = hashlib.sha256(lead_data_param.encode("utf-8")).hexdigest()
+    if st.session_state.get("processed_submission_key") != submission_key:
+        st.session_state["processed_submission_key"] = submission_key
+        with st.spinner("Processing your application…"):
+            try:
+                form_payload = _decode_lead_param(lead_data_param)
+            except Exception as exc:
+                st.error("Could not read your submission. Please try again.")
+                st.caption(f"Details: {exc}")
+                st.query_params.clear()
+                st.stop()
+            _process_submission(form_payload)
     st.stop()
-form_payload = _normalize_payload(raw_payload)
 
-if not form_payload:
-    st.stop()
-
-submission_key = json.dumps(form_payload, sort_keys=True, default=str)
-if st.session_state.get("processed_submission_key") == submission_key:
-    st.stop()
-
-st.session_state["processed_submission_key"] = submission_key
-_process_submission(form_payload)
+st.html(load_intake_html_fragment(), width="stretch", unsafe_allow_javascript=True)

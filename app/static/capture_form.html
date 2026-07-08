@@ -1402,12 +1402,10 @@
       const payload = buildPayload();
 
       try {
-        window.parent.postMessage({
-          type: "streamlit:setComponentValue",
-          value: payload
-        }, "*");
-        message.className = "message";
-        message.textContent = "Submitting your application…";
+        const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+        const url = new URL(window.location.href);
+        url.searchParams.set("lead_data", encoded);
+        window.location.href = url.toString();
       } catch (err) {
         message.className = "message error";
         message.textContent = err.message;
