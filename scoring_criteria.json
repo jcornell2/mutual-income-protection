@@ -1,0 +1,21 @@
+{
+  "_comment": "Mutual Income Protection — comprehensive lead scoring v4",
+  "criteria": [
+    {"field": "career_stage", "label": "Career Stage", "weights": {"new_attending": 26, "resident": 22, "fellow": 18, "established_attending": 10}},
+    {"field": "income_tier", "label": "Income Tier", "weights": {"500k_plus": 22, "350_500k": 20, "200_350k": 16, "100_200k": 8, "under_100k": 3}},
+    {"field": "existing_disability_insurance", "label": "Existing DI", "weights": {"no": 16, "unsure": 8, "yes": 3}},
+    {"field": "current_disability_status", "label": "Disability Status", "weights": {"none": 14, "prior_claim": 4, "receiving_benefits": 1, "currently_disabled": 0}},
+    {"field": "prior_application_denied", "label": "Prior Denials", "weights": {"no": 8, "unsure": 4, "yes": 0}},
+    {"field": "medical_complexity", "label": "Medical Complexity", "weights": {"none": 12, "low": 7, "high": 1}},
+    {"field": "bmi_category", "label": "BMI", "weights": {"normal": 8, "underweight": 4, "overweight": 3, "obese": 0, "unknown": 2}},
+    {"field": "tobacco_nicotine", "label": "Smoking", "weights": {"never": 10, "former": 5, "current": 0}},
+    {"field": "drug_use", "label": "Drug Use", "weights": {"never": 6, "former": 2, "current": 0}},
+    {"field": "affordability_signal", "label": "Premium Affordability", "weights": {"strong": 12, "moderate": 7, "weak": 1, "unknown": 3}},
+    {"field": "exercise_frequency", "label": "Exercise", "weights": {"intense": 5, "moderate": 4, "light": 2, "none": 0}},
+    {"field": "provider_type", "label": "Provider", "weights": {"physician": 6, "dentist": 5}},
+    {"field": "specialty", "label": "Specialty", "weights": {"Orthopedic Surgery": 8, "Neurosurgery": 8, "Cardiology": 7, "Anesthesiology": 7, "Other": 2}},
+    {"field": "premium_target_acknowledgment", "label": "Premium Ack", "weights": {"True": 4, "False": 0}},
+    {"field": "agent_followup_acknowledgment", "label": "Agent Follow-Up Ack", "weights": {"True": 4, "False": 0}}
+  ],
+  "tiers": {"hot": 90, "warm": 60, "cold": 0}
+}

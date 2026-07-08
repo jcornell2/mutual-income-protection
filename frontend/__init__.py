@@ -1,0 +1,1 @@
+"""Mutual Income Protection — Streamlit deployment frontend."""
