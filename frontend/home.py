@@ -50,7 +50,9 @@ def render() -> None:
         ):
             st.switch_page("frontend/pages/Apply.py")
 
-    components.html(load_landing_html(), height=2400, scrolling=True)
+    action = components.html(load_landing_html(), height=2400, scrolling=True)
+    if action == "navigate_apply":
+        st.switch_page("frontend/pages/Apply.py")
 
 
 render()

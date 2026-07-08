@@ -37,12 +37,21 @@ STREAMLIT_SUBMIT_HANDLER = """
 """
 
 
+STREAMLIT_NAVIGATE_APPLY = (
+    'href="#" onclick="'
+    "event.preventDefault();"
+    "window.parent.postMessage({type:'streamlit:setComponentValue',value:'navigate_apply'},'*');"
+    '"'
+)
+
+
+def _patch_landing_nav(html: str) -> str:
+    """Landing CTAs must message Streamlit — iframe blocks normal link navigation."""
+    return html.replace('href="/apply"', STREAMLIT_NAVIGATE_APPLY)
+
+
 def _patch_streamlit_links(html: str) -> str:
     """Break out of Streamlit component iframes when navigating between pages."""
-    html = html.replace(
-        'href="/apply"',
-        'href="/Apply" target="_top" onclick="window.top.location.href=\'/Apply\';return false;"',
-    )
     html = html.replace(
         'href="/"',
         'href="/" target="_top" onclick="window.top.location.href=\'/\';return false;"',
@@ -52,7 +61,7 @@ def _patch_streamlit_links(html: str) -> str:
 
 def load_landing_html() -> str:
     html = (STATIC_DIR / "landing.html").read_text(encoding="utf-8")
-    return _patch_streamlit_links(html)
+    return _patch_landing_nav(html)
 
 
 def load_intake_html() -> str:
