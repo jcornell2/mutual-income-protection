@@ -21,22 +21,28 @@ load_dotenv(ROOT / ".env")
 
 from frontend.db import ensure_db
 from frontend.html_pages import load_landing_html
-from frontend.styles import apply_brand
 
 CUSTOMER_CSS = """
 <style>
+.stApp { background: #F4F6F9; }
 [data-testid="stSidebar"] { display: none; }
 [data-testid="stSidebarCollapsedControl"] { display: none; }
 header[data-testid="stHeader"] { opacity: 0; pointer-events: none; }
 .block-container { padding-top: 0; padding-left: 0; padding-right: 0; max-width: 100%; }
 .main .block-container { padding-top: 0; }
+/* Do not let admin CRM styles override the public landing page */
+.stApp h1, .stApp h2, .stApp h3 { color: inherit; }
 </style>
 """
 
 
 def render() -> None:
     ensure_db()
-    apply_brand("Mutual Income Protection | Home")
+    st.set_page_config(
+        page_title="Mutual Income Protection | Home",
+        page_icon="🛡️",
+        layout="wide",
+    )
     st.markdown(CUSTOMER_CSS, unsafe_allow_html=True)
     st.html(load_landing_html(), width="stretch")
 
