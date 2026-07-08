@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import base64
 import re
 from pathlib import Path
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / "app" / "static"
+HEADSHOT_PATH = STATIC_DIR / "jake-headshot.jpg"
+HEADSHOT_PLACEHOLDER = "__JAKE_HEADSHOT_SRC__"
 
 STREAMLIT_SUBMIT_REDIRECT = """
     form.addEventListener("submit", async (e) => {
@@ -93,9 +96,23 @@ def _extract_fragment(html: str, *, wrapper_class: str, body_selector_replace: s
     return f'{styles}\n<div class="{wrapper_class}">{body_match.group(1)}</div>'
 
 
+def _inject_headshot(html: str) -> str:
+    """Embed local LinkedIn headshot as data URI (iframe-safe)."""
+    if HEADSHOT_PLACEHOLDER not in html:
+        return html
+    if not HEADSHOT_PATH.is_file():
+        return html.replace(
+            HEADSHOT_PLACEHOLDER,
+            "https://unavatar.io/linkedin/jacob-cornell-29a89a311",
+        )
+    data = base64.b64encode(HEADSHOT_PATH.read_bytes()).decode("ascii")
+    return html.replace(HEADSHOT_PLACEHOLDER, f"data:image/jpeg;base64,{data}")
+
+
 def load_landing_html() -> str:
     """Full landing page document for iframe embed (form uses postMessage to parent)."""
     html = (STATIC_DIR / "landing.html").read_text(encoding="utf-8")
+    html = _inject_headshot(html)
     return _patch_streamlit_links(html)
 
 

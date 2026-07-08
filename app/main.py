@@ -55,7 +55,11 @@ STATIC = Path(__file__).parent / "static"
 
 @app.get("/")
 def landing_page():
-    return FileResponse(STATIC / "landing.html")
+    from fastapi.responses import HTMLResponse
+
+    from frontend.html_pages import load_landing_html
+
+    return HTMLResponse(load_landing_html())
 
 
 @app.get("/apply")

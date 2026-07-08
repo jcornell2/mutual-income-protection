@@ -81,12 +81,22 @@
       gap: 1.75rem;
       align-items: center;
     }
+    .hero-photo-link {
+      display: block;
+      line-height: 0;
+      width: fit-content;
+    }
+    .hero-photo-link:hover .hero-photo {
+      border-color: #fff;
+      transform: scale(1.02);
+    }
     .hero-photo {
       width: 140px; height: 140px;
       border-radius: 50%;
       border: 4px solid var(--gold);
       object-fit: cover;
       box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      transition: border-color 0.2s, transform 0.2s;
     }
     .hero h1 {
       font-size: clamp(1.5rem, 3.5vw, 2.1rem);
@@ -285,7 +295,7 @@
       </div>
       <div class="header-links">
         <a href="https://www.linkedin.com/in/jacob-cornell-29a89a311" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://vfgnys.com/about/agents/jake-cornell/" target="_blank" rel="noopener">About Jake</a>
+        <a href="https://financialprofessionals.massmutual.com/jacob-jake-cornell" target="_blank" rel="noopener">MassMutual Profile</a>
         <a class="header-phone" href="tel:3157832482">(315) 783-2482</a>
       </div>
     </div>
@@ -293,12 +303,20 @@
 
   <section class="hero">
     <div class="wrap hero-grid">
-      <img
-        class="hero-photo"
-        src="https://vfgnys.com/wp-content/uploads/2024/11/Jake-Cornell-Web.png"
-        alt="Jake Cornell — Financial Services Professional"
-        width="140" height="140"
-      />
+      <a
+        class="hero-photo-link"
+        href="https://www.linkedin.com/in/jacob-cornell-29a89a311"
+        target="_blank"
+        rel="noopener"
+        aria-label="Jake Cornell on LinkedIn"
+      >
+        <img
+          class="hero-photo"
+          src="__JAKE_HEADSHOT_SRC__"
+          alt="Jake Cornell — Financial Services Professional"
+          width="140" height="140"
+        />
+      </a>
       <div>
         <h1>Jake Cornell</h1>
         <p class="title">Financial Services Professional · NPN 20476670</p>
@@ -314,6 +332,8 @@
           <span class="cred-pill">Vision Financial Group</span>
         </div>
         <div class="hero-links">
+          <a href="https://www.linkedin.com/in/jacob-cornell-29a89a311" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://financialprofessionals.massmutual.com/jacob-jake-cornell" target="_blank" rel="noopener">MassMutual Profile</a>
           <a href="tel:3157832482">(315) 783-2482</a>
           <a href="mailto:jcornell@financialguide.com">jcornell@financialguide.com</a>
         </div>
@@ -522,7 +542,12 @@
   <footer>
     <div class="wrap">
       <p><strong>Jake Cornell</strong> · Financial Services Professional · NPN 20476670</p>
-      <p><a href="mailto:jcornell@financialguide.com">jcornell@financialguide.com</a> · <a href="tel:3157832482">(315) 783-2482</a></p>
+      <p>
+        <a href="https://www.linkedin.com/in/jacob-cornell-29a89a311" target="_blank" rel="noopener">LinkedIn</a> ·
+        <a href="https://financialprofessionals.massmutual.com/jacob-jake-cornell" target="_blank" rel="noopener">MassMutual Profile</a> ·
+        <a href="mailto:jcornell@financialguide.com">jcornell@financialguide.com</a> ·
+        <a href="tel:3157832482">(315) 783-2482</a>
+      </p>
       <p class="mm-disc">
         This page is for informational purposes only — not an insurance application, binding quote, or offer of coverage.
         Securities and investment advisory services offered through MML Investors Services, LLC. Member
