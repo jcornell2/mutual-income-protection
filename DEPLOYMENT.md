@@ -10,12 +10,13 @@ Deploy the app as a **single Streamlit process**. Public visitors use the landin
 | `/Apply` | 8-step pre-application form | Public |
 | `/Admin` | CRM, analytics, exports | Passkey required |
 
-**Suggested app names (Streamlit Cloud / Railway / Render):**
+**Live app (Streamlit Cloud):**
 
-- `mutualincomeprotection` → `https://mutualincomeprotection.streamlit.app`
-- Custom domain (optional): `https://apply.mutualincomeprotection.com`
+- **https://cornell.streamlit.app/**
 
-Share the public link: **`/`** for marketing, **`/Apply`** for direct intake.
+**Suggested app URL slug:** `cornell`
+
+Share the public link: **`/`** for marketing, **`/Apply`** for direct intake (admin only).
 
 ---
 
@@ -76,7 +77,7 @@ streamlit run frontend/app.py --server.port 8501 --server.address 0.0.0.0
 2. Go to **https://share.streamlit.io** → **Create app**.
 3. Select your repo, branch `main`.
 4. **Main file path:** `frontend/app.py`
-5. **App URL (optional):** `mutualincomeprotection`
+5. **App URL (optional):** `cornell`
 6. Open **Advanced settings → Secrets** and paste (from `.streamlit/secrets.toml.example`, with real values):
 
 ```toml
@@ -97,9 +98,9 @@ ORGANIZATION_NAME = "Mutual Income Protection"
 
 **Live URLs:**
 
-- `https://mutualincomeprotection.streamlit.app/`
-- `https://mutualincomeprotection.streamlit.app/Apply`
-- `https://mutualincomeprotection.streamlit.app/Admin`
+- `https://cornell.streamlit.app/`
+- `https://cornell.streamlit.app/Apply`
+- `https://cornell.streamlit.app/Admin`
 
 ### Streamlit Cloud CLI (optional)
 

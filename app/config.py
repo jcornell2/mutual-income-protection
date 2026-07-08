@@ -23,7 +23,9 @@ class Settings(BaseSettings):
     api_port: int = 8000
     streamlit_port: int = 8501
     data_retention_days: int = 365
-    allowed_origins: str = "http://127.0.0.1:8501,http://localhost:8501"
+    allowed_origins: str = (
+        "http://127.0.0.1:8501,http://localhost:8501,https://cornell.streamlit.app"
+    )
     scoring_config_path: Path = BASE_DIR / "scoring_criteria.json"
 
     organization_name: str = APP_NAME
