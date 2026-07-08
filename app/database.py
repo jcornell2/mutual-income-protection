@@ -35,7 +35,14 @@ def init_db() -> None:
     needs_reset = version != SCHEMA_VERSION
     if not needs_reset and "leads" in tables:
         columns = {col["name"] for col in inspector.get_columns("leads")}
-        needs_reset = "contact_preference" not in columns
+        needs_reset = "formal_app_acknowledgment" not in columns
+
+    if not needs_reset and "short_leads" in tables:
+        short_cols = {col["name"] for col in inspector.get_columns("short_leads")}
+        if "height_feet" not in short_cols:
+            needs_reset = True
+    elif not needs_reset and "short_leads" not in tables:
+        needs_reset = True
 
     if needs_reset and tables:
         Base.metadata.drop_all(bind=engine)

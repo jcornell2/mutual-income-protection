@@ -38,6 +38,7 @@ class Settings(BaseSettings):
     smtp_password: str = ""
     smtp_from_email: str = ""
     alert_email_to: str = ""
+    calendly_url: str = ""
 
     @property
     def allowed_origins_list(self) -> list[str]:

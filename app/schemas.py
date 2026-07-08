@@ -16,7 +16,34 @@ class CareerStage(str, Enum):
     ESTABLISHED_ATTENDING = "established_attending"
 
 
+class MedicationRow(BaseModel):
+    diagnosis: str = Field(default="", max_length=500)
+    medication_treatment: str = Field(default="", max_length=500)
+    still_under_treatment: Literal["yes", "no", ""] = ""
+    onset_date: str | None = Field(default=None, max_length=64)
+    physician_name: str | None = Field(default=None, max_length=256)
+    facility_address: str | None = Field(default=None, max_length=512)
+
+
 class LeadCreate(BaseModel):
+    # --- Pre-screen red flags (MassMutual checklist) ---
+    prescreen_disability_leave: Literal["yes", "no"]
+    prescreen_pending_surgery: Literal["yes", "no"]
+    prescreen_hospitalized_12mo: Literal["yes", "no"]
+    prescreen_uncontrolled_condition: Literal["yes", "no"]
+    prescreen_weight_loss_12mo: Literal["yes", "no"]
+    prescreen_weight_loss_lbs: int | None = Field(default=None, ge=1, le=200)
+    prescreen_bankruptcy_5yr: Literal["yes", "no"]
+    prescreen_felony_conviction: Literal["yes", "no"]
+    prescreen_substance_treatment_5yr: Literal["yes", "no"]
+    prescreen_foreign_travel: Literal["yes", "no"]
+    prescreen_aviation_pilot: Literal["yes", "no"]
+    prescreen_high_risk_avocation: Literal["yes", "no"]
+    prescreen_leave_of_absence: Literal["yes", "no"]
+    prescreen_family_cardiovascular: Literal["yes", "no", "unsure"] = "no"
+    prescreen_family_diabetes_kidney: Literal["yes", "no", "unsure"] = "no"
+    prescreen_details: str | None = Field(default=None, max_length=3000)
+    medications_table: list[MedicationRow] = Field(default_factory=list)
     # --- Personal ---
     full_name: str = Field(..., min_length=2, max_length=200)
     date_of_birth: date
@@ -56,6 +83,7 @@ class LeadCreate(BaseModel):
 
     # --- Financial ---
     annual_income_amount: int = Field(..., ge=0, le=10_000_000)
+    annual_unearned_income: int | None = Field(default=None, ge=0, le=10_000_000)
     income_breakdown: str = Field(..., min_length=5, max_length=2000)
     monthly_expenses_range: Literal["under_3k", "3k_8k", "8k_15k", "15k_plus", "not_sure"]
     monthly_expenses_detail: str | None = Field(default=None, max_length=2000)
@@ -115,8 +143,15 @@ class LeadCreate(BaseModel):
     medical_exam_acknowledgment: bool = False
     agent_followup_acknowledgment: bool = False
     premium_target_acknowledgment: bool = False
+    formal_app_acknowledgment: bool = False
 
-    @field_validator("privacy_consent", "medical_exam_acknowledgment", "agent_followup_acknowledgment", "premium_target_acknowledgment")
+    @field_validator(
+        "privacy_consent",
+        "medical_exam_acknowledgment",
+        "agent_followup_acknowledgment",
+        "premium_target_acknowledgment",
+        "formal_app_acknowledgment",
+    )
     @classmethod
     def require_ack(cls, value: bool) -> bool:
         if not value:
@@ -131,6 +166,24 @@ class LeadCreate(BaseModel):
             raise ValueError("Please describe your disability status.")
         if self.prior_application_denied == "yes" and not self.prior_applications_denials:
             raise ValueError("Please describe prior application denials.")
+        if self.prescreen_weight_loss_12mo == "yes" and not self.prescreen_weight_loss_lbs:
+            raise ValueError("Please enter weight loss amount in pounds.")
+        prescreen_yes = [
+            self.prescreen_disability_leave,
+            self.prescreen_pending_surgery,
+            self.prescreen_hospitalized_12mo,
+            self.prescreen_uncontrolled_condition,
+            self.prescreen_weight_loss_12mo,
+            self.prescreen_bankruptcy_5yr,
+            self.prescreen_felony_conviction,
+            self.prescreen_substance_treatment_5yr,
+            self.prescreen_foreign_travel,
+            self.prescreen_aviation_pilot,
+            self.prescreen_high_risk_avocation,
+            self.prescreen_leave_of_absence,
+        ]
+        if any(v == "yes" for v in prescreen_yes) and not (self.prescreen_details or "").strip():
+            raise ValueError("Please provide details for any pre-screen red flag marked Yes.")
         return self
 
 
@@ -230,6 +283,25 @@ class LeadResponse(BaseModel):
     medical_exam_acknowledgment: bool
     agent_followup_acknowledgment: bool
     premium_target_acknowledgment: bool
+    formal_app_acknowledgment: bool
+    prescreen_disability_leave: str | None = None
+    prescreen_pending_surgery: str | None = None
+    prescreen_hospitalized_12mo: str | None = None
+    prescreen_uncontrolled_condition: str | None = None
+    prescreen_weight_loss_12mo: str | None = None
+    prescreen_weight_loss_lbs: int | None = None
+    prescreen_bankruptcy_5yr: str | None = None
+    prescreen_felony_conviction: str | None = None
+    prescreen_substance_treatment_5yr: str | None = None
+    prescreen_foreign_travel: str | None = None
+    prescreen_aviation_pilot: str | None = None
+    prescreen_high_risk_avocation: str | None = None
+    prescreen_leave_of_absence: str | None = None
+    prescreen_family_cardiovascular: str | None = None
+    prescreen_family_diabetes_kidney: str | None = None
+    prescreen_details: str | None = None
+    medications_table: list[dict] | None = None
+    annual_unearned_income: int | None = None
     consent_timestamp: datetime | None
     notes: str | None
     created_at: datetime
@@ -295,3 +367,52 @@ class EmailTemplatePreview(BaseModel):
     name: str
     subject: str
     body: str
+
+
+class ShortLeadCreate(BaseModel):
+    full_name: str = Field(..., min_length=2, max_length=200)
+    email: EmailStr
+    phone: str = Field(..., min_length=10, max_length=30)
+    medical_specialty: Literal["physician", "dentist", "surgeon", "other"]
+    income_range: Literal["200_400k", "400_600k", "600k_plus", "prefer_not_to_say"]
+    disability_insurance_status: Literal[
+        "none",
+        "employer_group_only",
+        "individual_policy",
+        "group_and_individual",
+        "unsure",
+    ]
+    best_time_to_contact: Literal["morning", "afternoon", "evening", "anytime", "weekends"]
+    height_feet: int = Field(..., ge=4, le=7)
+    height_inches: int = Field(..., ge=0, le=11)
+    weight_lbs: int = Field(..., ge=80, le=500)
+    tobacco_nicotine: Literal["never", "former", "current"]
+    medical_history: str = Field(..., min_length=2, max_length=3000)
+    interest_future_income_option: bool = False
+    interest_cola: bool = False
+    interest_extended_partial: bool = False
+
+
+class ShortLeadResponse(BaseModel):
+    id: int
+    full_name: str
+    email: str
+    phone: str
+    medical_specialty: str
+    income_range: str
+    disability_insurance_status: str
+    best_time_to_contact: str
+    height_feet: int | None
+    height_inches: int | None
+    weight_lbs: int | None
+    bmi: float | None = None
+    tobacco_nicotine: str | None
+    medical_history: str | None
+    interest_future_income_option: bool
+    interest_cola: bool
+    interest_extended_partial: bool
+    status: str
+    email_sent: bool
+    created_at: datetime
+
+    model_config = {"from_attributes": True}

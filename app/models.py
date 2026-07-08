@@ -4,7 +4,7 @@ from enum import Enum
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
-SCHEMA_VERSION = 5
+SCHEMA_VERSION = 8
 
 
 class Base(DeclarativeBase):
@@ -60,6 +60,8 @@ class Lead(Base):
     work_impact_enc: Mapped[str | None] = mapped_column(Text, nullable=True)
     occupation_details_enc: Mapped[str | None] = mapped_column(Text, nullable=True)
     notes_enc: Mapped[str | None] = mapped_column(Text, nullable=True)
+    prescreen_json_enc: Mapped[str | None] = mapped_column(Text, nullable=True)
+    medications_table_enc: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     email_hash: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
     ssn_hash: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
@@ -105,6 +107,7 @@ class Lead(Base):
     prior_application_denied: Mapped[str] = mapped_column(String(16), default="no")
 
     annual_income_amount: Mapped[int] = mapped_column(Integer, nullable=False)
+    annual_unearned_income: Mapped[int | None] = mapped_column(Integer, nullable=True)
     annual_income_range: Mapped[str] = mapped_column(String(32), nullable=False)
     monthly_expenses_range: Mapped[str] = mapped_column(String(32), nullable=False)
     home_value_range: Mapped[str] = mapped_column(String(32), default="unknown")
@@ -128,6 +131,7 @@ class Lead(Base):
     medical_exam_acknowledgment: Mapped[bool] = mapped_column(Boolean, default=False)
     agent_followup_acknowledgment: Mapped[bool] = mapped_column(Boolean, default=False)
     premium_target_acknowledgment: Mapped[bool] = mapped_column(Boolean, default=False)
+    formal_app_acknowledgment: Mapped[bool] = mapped_column(Boolean, default=False)
     consent_timestamp: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
@@ -142,6 +146,37 @@ class Lead(Base):
     converted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     follow_ups: Mapped[list["FollowUp"]] = relationship(back_populates="lead", cascade="all, delete-orphan")
+
+
+class ShortLead(Base):
+    """High-conversion landing page inquiry (short form)."""
+
+    __tablename__ = "short_leads"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    full_name_enc: Mapped[str] = mapped_column(String(512), nullable=False)
+    email_enc: Mapped[str] = mapped_column(String(512), nullable=False)
+    phone_enc: Mapped[str] = mapped_column(String(512), nullable=False)
+    email_hash: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    medical_specialty: Mapped[str] = mapped_column(String(32), nullable=False)
+    income_range: Mapped[str] = mapped_column(String(32), nullable=False)
+    disability_insurance_status: Mapped[str] = mapped_column(String(64), nullable=False)
+    best_time_to_contact: Mapped[str] = mapped_column(String(32), nullable=False)
+    height_feet: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    height_inches: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    weight_lbs: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    tobacco_nicotine: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    medical_history_enc: Mapped[str | None] = mapped_column(Text, nullable=True)
+    interest_future_income_option: Mapped[bool] = mapped_column(Boolean, default=False)
+    interest_cola: Mapped[bool] = mapped_column(Boolean, default=False)
+    interest_extended_partial: Mapped[bool] = mapped_column(Boolean, default=False)
+    status: Mapped[str] = mapped_column(String(32), default=LeadStatus.NEW.value, index=True)
+    email_sent: Mapped[bool] = mapped_column(Boolean, default=False)
+    notes_enc: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
+    )
+    contacted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
 
 class FollowUp(Base):

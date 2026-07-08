@@ -3,712 +3,641 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Disability insurance for busy physicians and dentists. Protect your $300k+ income with target premiums under 1-3%. Start your protected application in ~12 minutes." />
-  <title>Mutual Income Protection | Disability Insurance for Physicians &amp; Dentists</title>
+  <meta name="description" content="Own-occupation disability income protection for physicians and dentists. Jacob Cornell, MassMutual Financial Services Professional, NPN 20476670." />
+  <title>Mutual Income Protection | Jacob Cornell — Disability Income for Physicians</title>
   <style>
     :root {
-      --navy: #002F6C;
-      --navy-dark: #001E45;
-      --navy-mid: #003D8F;
+      --mm-blue: #002F6C;
+      --mm-blue-dark: #001A3D;
+      --mm-blue-mid: #003D8F;
+      --mm-green: #007A53;
       --gold: #C4A962;
       --gold-light: #E8D9A8;
       --bg: #F4F6F9;
-      --card: #ffffff;
+      --card: #fff;
       --text: #1A2B3C;
       --muted: #5A6B7D;
       --border: #D4DCE6;
+      --error: #b42318;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: "Segoe UI", system-ui, -apple-system, Georgia, serif;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
       color: var(--text);
       background: var(--bg);
-      line-height: 1.65;
+      line-height: 1.55;
     }
-    a { color: var(--navy); }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+    a { color: var(--mm-blue-mid); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem; }
 
-    /* Top bar */
-    .topbar {
-      background: var(--navy-dark);
-      color: rgba(255,255,255,0.85);
-      font-size: 0.8rem;
-      padding: 0.45rem 0;
-      text-align: center;
-      letter-spacing: 0.02em;
-    }
-
-    /* Nav */
-    nav {
+    /* Header */
+    .site-header {
       background: var(--card);
       border-bottom: 1px solid var(--border);
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(0,47,108,0.06);
+      padding: 0.75rem 0;
     }
-    .nav-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+    .header-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 0.75rem;
     }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      color: var(--navy);
-    }
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid var(--gold);
-      font-weight: 800;
-      font-size: 0.7rem;
-      color: var(--gold-light);
-      letter-spacing: -0.02em;
-    }
-    .brand-text { font-size: 1.05rem; font-weight: 700; line-height: 1.2; }
-    .brand-sub { font-size: 0.72rem; color: var(--muted); font-weight: 500; }
-    .nav-cta {
-      background: var(--gold);
-      color: var(--navy-dark);
-      padding: 0.65rem 1.35rem;
-      border-radius: 8px;
-      text-decoration: none;
+    .logo-block { display: flex; align-items: center; gap: 0.65rem; }
+    .mm-badge {
+      background: var(--mm-blue);
+      color: #fff;
+      font-size: 0.65rem;
       font-weight: 700;
-      font-size: 0.92rem;
-      transition: filter 0.2s, transform 0.15s;
-      box-shadow: 0 3px 10px rgba(196,169,98,0.35);
+      padding: 0.35rem 0.55rem;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
     }
-    .nav-cta:hover { filter: brightness(1.06); transform: translateY(-1px); }
+    .logo-text { font-size: 0.95rem; font-weight: 700; color: var(--mm-blue); line-height: 1.2; }
+    .logo-sub { font-size: 0.7rem; color: var(--muted); font-weight: 500; }
+    .header-links { display: flex; gap: 0.65rem; flex-wrap: wrap; align-items: center; }
+    .header-links a {
+      font-size: 0.78rem; font-weight: 600; text-decoration: none;
+      padding: 0.4rem 0.75rem; border-radius: 6px;
+      border: 1px solid var(--border); color: var(--mm-blue);
+    }
+    .header-links a:hover { background: #f0f4f8; }
+    .header-phone {
+      font-size: 0.85rem; font-weight: 700; color: var(--mm-blue);
+      text-decoration: none;
+    }
 
     /* Hero */
     .hero {
-      background: linear-gradient(145deg, var(--navy-dark) 0%, var(--navy) 55%, var(--navy-mid) 100%);
+      background: linear-gradient(135deg, var(--mm-blue-dark) 0%, var(--mm-blue) 60%, var(--mm-blue-mid) 100%);
       color: #fff;
-      padding: 4.5rem 0 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: -40%;
-      right: -15%;
-      width: 55%;
-      height: 140%;
-      background: radial-gradient(ellipse, rgba(196,169,98,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+      padding: 2.5rem 0 2rem;
+      border-bottom: 4px solid var(--gold);
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 3rem;
+      grid-template-columns: auto 1fr;
+      gap: 1.75rem;
       align-items: center;
-      position: relative;
-      z-index: 1;
     }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(196,169,98,0.2);
-      border: 1px solid var(--gold);
-      color: var(--gold-light);
-      padding: 0.35rem 0.85rem;
-      border-radius: 99px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
+    .hero-photo {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 4px solid var(--gold);
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
     }
     .hero h1 {
-      font-size: clamp(2rem, 4.5vw, 2.85rem);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 1.1rem;
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.02em;
     }
-    .hero h1 em {
-      font-style: normal;
-      color: var(--gold-light);
-    }
-    .hero-subhead {
-      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
-      font-weight: 700;
-      color: var(--gold-light);
-      margin: 0 0 1rem;
-      line-height: 1.35;
-    }
-    .hero-lead {
-      font-size: 1.05rem;
-      opacity: 0.92;
-      max-width: 560px;
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-    .hero-trust-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      margin-top: 1.35rem;
-    }
-    .trust-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(196,169,98,0.45);
-      color: #fff;
-      padding: 0.4rem 0.75rem;
-      border-radius: 99px;
-      font-size: 0.76rem;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-    }
-    .trust-badge strong { color: var(--gold-light); font-weight: 700; }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-    .btn-primary {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--navy-dark);
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.05rem;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-      transition: filter 0.2s, transform 0.15s;
-    }
-    .btn-primary:hover { filter: brightness(1.05); transform: translateY(-2px); }
-    .hero-note { font-size: 0.85rem; opacity: 0.8; }
-    .hero-card {
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(196,169,98,0.35);
-      border-radius: 14px;
-      padding: 1.75rem;
-    }
-    .hero-card h3 {
-      color: var(--gold-light);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 1rem;
-    }
-    .stat-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.65rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.92rem;
-    }
-    .stat-row:last-child { border-bottom: none; }
-    .stat-val { font-weight: 700; color: var(--gold-light); }
-
-    /* Trust bar */
-    .trust-bar {
-      background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem 0;
-    }
-    .trust-items {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: var(--navy);
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.85rem 1rem;
-      box-shadow: 0 2px 8px rgba(0,47,108,0.05);
-    }
-    .trust-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .hero .title {
       font-size: 1rem;
-      border: 2px solid var(--gold);
-    }
-
-    /* Sections */
-    section { padding: 4rem 0; }
-    section.alt { background: var(--card); }
-    .section-header { text-align: center; margin-bottom: 2.75rem; }
-    .section-header h2 {
-      font-size: 1.85rem;
-      color: var(--navy);
-      margin-bottom: 0.6rem;
-      font-weight: 700;
-    }
-    .section-header p {
-      color: var(--muted);
-      max-width: 620px;
-      margin: 0 auto;
-      font-size: 1.02rem;
-    }
-    .gold-line {
-      width: 60px;
-      height: 3px;
-      background: var(--gold);
-      margin: 0.75rem auto 0;
-      border-radius: 2px;
-    }
-
-    /* Benefits grid */
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .benefit-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.75rem;
-      box-shadow: 0 4px 18px rgba(0,47,108,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .benefit-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(0,47,108,0.1);
-    }
-    .benefit-icon {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-      border-bottom: 3px solid var(--gold);
-    }
-    .benefit-card h3 {
-      color: var(--navy);
-      font-size: 1.08rem;
+      color: var(--gold-light);
+      font-weight: 600;
       margin-bottom: 0.5rem;
     }
-    .benefit-card p { color: var(--muted); font-size: 0.93rem; }
+    .hero .tagline {
+      font-size: 0.95rem;
+      opacity: 0.92;
+      max-width: 580px;
+      margin-bottom: 0.85rem;
+    }
+    .cred-row {
+      display: flex; flex-wrap: wrap; gap: 0.45rem;
+    }
+    .cred-pill {
+      font-size: 0.72rem; font-weight: 600;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(196,169,98,0.45);
+      padding: 0.3rem 0.65rem;
+      border-radius: 99px;
+    }
+    .hero-links { margin-top: 0.75rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-links a { color: var(--gold-light); font-size: 0.82rem; font-weight: 600; }
 
-    /* What to expect */
-    .expect-grid {
+    /* Main layout */
+    .main-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
+      grid-template-columns: 1fr 420px;
+      gap: 1.75rem;
+      padding: 2rem 0 3rem;
       align-items: start;
     }
-    .expect-list { list-style: none; }
-    .expect-list li {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-      align-items: flex-start;
-    }
-    .step-num {
-      flex-shrink: 0;
-      width: 32px;
-      height: 32px;
-      background: var(--navy);
-      color: var(--gold-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.85rem;
-      border: 2px solid var(--gold);
-    }
-    .expect-list strong { display: block; color: var(--navy); margin-bottom: 0.15rem; }
-    .expect-list span { color: var(--muted); font-size: 0.92rem; }
-    .expect-highlight {
-      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
-      color: #fff;
-      border-radius: 14px;
-      padding: 2rem;
-      border-bottom: 4px solid var(--gold);
-    }
-    .expect-highlight h3 {
-      color: var(--gold-light);
-      margin-bottom: 1rem;
-      font-size: 1.15rem;
-    }
-    .expect-highlight ul {
-      list-style: none;
-      font-size: 0.92rem;
-      opacity: 0.92;
-    }
-    .expect-highlight li {
-      padding: 0.4rem 0;
-      padding-left: 1.25rem;
-      position: relative;
-    }
-    .expect-highlight li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--gold);
-      font-weight: 700;
-    }
 
-    /* Form overview */
-    .steps-overview {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
+    /* Left column — education */
+    .edu-col h2 {
+      font-size: 1.15rem; color: var(--mm-blue);
+      margin-bottom: 0.75rem;
     }
-    .step-card {
+    .edu-col > p.lead {
+      color: var(--muted); font-size: 0.92rem;
+      margin-bottom: 1.25rem;
+    }
+    .edu-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 1.25rem;
-      border-top: 3px solid var(--gold);
-      position: relative;
+      padding: 1.1rem 1.2rem;
+      margin-bottom: 0.85rem;
+      border-left: 4px solid var(--mm-blue);
     }
-    .step-card .num {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.35rem;
+    .edu-card.highlight { border-left-color: var(--mm-green); }
+    .edu-card h3 { font-size: 0.92rem; color: var(--mm-blue); margin-bottom: 0.3rem; }
+    .edu-card p { font-size: 0.86rem; color: var(--text); margin: 0; }
+    .edu-card .tip {
+      font-size: 0.8rem; color: var(--muted);
+      margin-top: 0.35rem; font-style: italic;
     }
-    .step-card h4 {
-      color: var(--navy);
-      font-size: 0.98rem;
-      margin-bottom: 0.4rem;
-    }
-    .step-card p {
-      font-size: 0.82rem;
+    .vfg-note {
+      background: #f0f4f8;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.78rem;
       color: var(--muted);
       line-height: 1.5;
+      margin-top: 1rem;
     }
 
-    /* CTA band */
-    .cta-band {
-      background: linear-gradient(135deg, var(--navy-dark), var(--navy));
-      color: #fff;
-      padding: 3.5rem 0;
-      text-align: center;
-      border-top: 4px solid var(--gold);
+    /* Right column — form */
+    .form-shell {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.35rem 1.4rem 1.5rem;
+      box-shadow: 0 10px 36px rgba(0,47,108,0.09);
+      position: sticky;
+      top: 1rem;
     }
-    .cta-band h2 { font-size: 1.75rem; margin-bottom: 0.75rem; }
-    .cta-band p { opacity: 0.9; margin-bottom: 1.75rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .form-shell h2 {
+      font-size: 1.1rem; color: var(--mm-blue); margin-bottom: 0.2rem;
+    }
+    .form-shell .form-sub {
+      font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem;
+    }
 
-    /* Disclaimer */
-    .disclaimer {
-      background: #FFF9E6;
-      border: 1px solid var(--gold);
-      border-left: 5px solid var(--gold);
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem;
-      font-size: 0.88rem;
-      color: var(--navy-dark);
-      line-height: 1.6;
+    .progress { margin-bottom: 1rem; }
+    .progress-bar { height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, var(--mm-blue), var(--gold));
+      width: 25%; transition: width 0.3s;
     }
-    .disclaimer strong { color: var(--navy); }
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.75rem; color: var(--muted); margin-top: 0.35rem; font-weight: 600;
+    }
+
+    .step { display: none; }
+    .step.active { display: block; }
+
+    .field { margin-bottom: 0.75rem; }
+    .field label { display: block; font-size: 0.78rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .req { color: var(--error); }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 0.6rem 0.75rem;
+      border: 1px solid var(--border); border-radius: 7px;
+      font-size: 0.9rem; font-family: inherit;
+    }
+    .field textarea { min-height: 72px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none; border-color: var(--mm-blue);
+      box-shadow: 0 0 0 3px rgba(0,47,108,0.08);
+    }
+    .field input.invalid, .field select.invalid, .field textarea.invalid { border-color: var(--error); }
+    .field-error { font-size: 0.74rem; color: var(--error); display: none; }
+    .field-error.show { display: block; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+
+    .edu-inline {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 0.85rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.84rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .edu-inline strong { color: var(--mm-blue); }
+
+    .rider-checks { display: flex; flex-direction: column; gap: 0.5rem; }
+    .rider-checks label {
+      display: flex; align-items: flex-start; gap: 0.45rem;
+      font-size: 0.82rem; font-weight: 500; cursor: pointer;
+      padding: 0.55rem 0.65rem; border: 1px solid var(--border); border-radius: 7px;
+    }
+    .rider-checks label:hover { border-color: var(--mm-blue); background: #f8fafc; }
+    .rider-checks input { width: auto; margin-top: 0.12rem; }
+    .rider-checks .sub { font-size: 0.74rem; color: var(--muted); font-weight: 400; display: block; }
+
+    .nav { display: flex; gap: 0.6rem; margin-top: 1rem; }
+    .btn {
+      flex: 1; padding: 0.75rem 1rem; border: none; border-radius: 7px;
+      font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    }
+    .btn-primary { background: var(--mm-blue); color: #fff; border-bottom: 3px solid var(--gold); }
+    .btn-primary:hover { background: var(--mm-blue-dark); }
+    .btn-secondary { background: #fff; color: var(--mm-blue); border: 2px solid var(--border); flex: 0 0 auto; min-width: 90px; }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .hidden { display: none !important; }
+
+    .form-msg { margin-top: 0.6rem; padding: 0.65rem; border-radius: 7px; display: none; font-size: 0.82rem; }
+    .form-msg.error { display: block; background: #fdecec; color: var(--error); border: 1px solid #f5c2c0; }
 
     footer {
-      background: var(--navy-dark);
-      color: rgba(255,255,255,0.7);
-      text-align: center;
-      padding: 2.5rem 1.5rem;
-      font-size: 0.85rem;
+      background: var(--mm-blue-dark);
+      color: rgba(255,255,255,0.75);
+      padding: 1.75rem 0;
+      font-size: 0.72rem;
+      line-height: 1.55;
     }
-    footer .brand-footer {
-      color: var(--gold-light);
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
+    footer a { color: var(--gold-light); }
+    footer .mm-disc {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      opacity: 0.85;
     }
 
-    @media (max-width: 800px) {
-      .hero-grid, .expect-grid { grid-template-columns: 1fr; }
-      .hero { padding: 3rem 0 3.5rem; }
-      .trust-items { gap: 1.25rem; }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-photo { margin: 0 auto; }
+      .cred-row, .hero-links { justify-content: center; }
+      .main-grid { grid-template-columns: 1fr; }
+      .form-shell { position: static; }
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <div class="topbar">Trusted by physicians &amp; dentists nationwide · Advisor: Jacob Cornell, NPN 20476670</div>
 
-  <nav>
-    <div class="wrap nav-inner">
-      <a class="brand" href="/">
-        <div class="brand-mark">MIP</div>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="logo-block">
+        <span class="mm-badge">MassMutual</span>
         <div>
-          <div class="brand-text">Mutual Income Protection</div>
-          <div class="brand-sub">Physician &amp; Dentist Disability Insurance</div>
-        </div>
-      </a>
-      <a class="nav-cta" href="/apply">Start My Protected Application →</a>
-    </div>
-  </nav>
-
-  <header class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="hero-badge">Residents · Fellows · Attendings</span>
-        <h1>Disability Insurance Built for Busy Physicians &amp; Dentists</h1>
-        <p class="hero-subhead">Protect Your $300k+ Income — Target Premium Under 1-3%</p>
-        <p class="hero-lead">
-          Complete a secure, carrier-ready intake in about 12 minutes. Get instant AI preliminary scoring
-          and a licensed advisor review — no obligation, no spam.
-        </p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="/apply">Start My Protected Application →</a>
-          <span class="hero-note">~12 min · 256-bit encrypted · No obligation</span>
-        </div>
-        <div class="hero-trust-badges">
-          <span class="trust-badge">🔒 <strong>Encrypted</strong></span>
-          <span class="trust-badge">🛡️ <strong>Own-Occupation</strong></span>
-          <span class="trust-badge">⚡ <strong>Instant AI Score</strong></span>
-          <span class="trust-badge">✓ <strong>No Obligation</strong></span>
+          <div class="logo-text">Mutual Income Protection</div>
+          <div class="logo-sub">Vision Financial Group · Disability Income for Medical Professionals</div>
         </div>
       </div>
-      <div class="hero-card">
-        <h3>Why clinicians start here</h3>
-        <div class="stat-row"><span>Built for</span><span class="stat-val">MDs, DOs &amp; DDS</span></div>
-        <div class="stat-row"><span>Income protected</span><span class="stat-val">$300k+ typical</span></div>
-        <div class="stat-row"><span>Premium target</span><span class="stat-val">Under 1-3%</span></div>
-        <div class="stat-row"><span>Completion time</span><span class="stat-val">~12 minutes</span></div>
-        <div class="stat-row"><span>Your advisor</span><span class="stat-val">Jacob Cornell</span></div>
+      <div class="header-links">
+        <a href="https://financialprofessionals.massmutual.com/jacob-jake-cornell" target="_blank" rel="noopener">My MassMutual Profile</a>
+        <a href="https://www.linkedin.com/in/jacob-cornell-29a89a311" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="header-phone" href="tel:3156714384">(315) 671-4384</a>
       </div>
     </div>
   </header>
 
-  <div class="trust-bar">
-    <div class="trust-items">
-      <div class="trust-item">
-        <div class="trust-icon">🔒</div>
-        <span>256-bit encrypted · HIPAA-aware</span>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">⚕️</div>
-        <span>Own-occupation specialty protection</span>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">💰</div>
-        <span>Premium targeting under 1-3% of income</span>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">🤖</div>
-        <span>Instant AI preliminary score</span>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">✓</div>
-        <span>Licensed advisor · NPN 20476670</span>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon">⏱️</div>
-        <span>~12 min · Save as you go</span>
-      </div>
-    </div>
-  </div>
-
-  <section>
-    <div class="wrap">
-      <div class="section-header">
-        <h2>Why Mutual Income Protection?</h2>
-        <p>Built specifically for medical professionals who need disability income coverage that protects their specialty — not just any occupation.</p>
-        <div class="gold-line"></div>
-      </div>
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <div class="benefit-icon">⚕️</div>
-          <h3>Own-Occupation Coverage</h3>
-          <p>Individual policies designed to protect your ability to practice in your medical or dental specialty, even if you can work in another field.</p>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <img
+        class="hero-photo"
+        src="https://vfgnys.com/wp-content/uploads/2024/11/Jake-Cornell-Web.png"
+        alt="Jacob Jake Cornell — Financial Services Professional"
+        width="140" height="140"
+      />
+      <div>
+        <h1>Jacob "Jake" Cornell</h1>
+        <p class="title">Financial Services Professional · NPN 20476670</p>
+        <p class="tagline">
+          I help physicians and dentists protect the income they've spent years building —
+          with MassMutual own-occupation disability coverage, future increase options, and riders
+          that keep pace with your career.
+        </p>
+        <div class="cred-row">
+          <span class="cred-pill">Licensed NY &amp; PA</span>
+          <span class="cred-pill">Series 7, 63, 65</span>
+          <span class="cred-pill">Disability Income Specialist</span>
+          <span class="cred-pill">Vision Financial Group</span>
         </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">🎓</div>
-          <h3>Resident-Friendly Options</h3>
-          <p>Many carriers offer simplified underwriting during training. Lock in insurability and favorable rates before health changes or career transitions.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">💰</div>
-          <h3>Premium Targeting 1–3%</h3>
-          <p>We structure coverage to keep premiums within a sustainable range relative to your current or expected attending income.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">📋</div>
-          <h3>Carrier-Ready Intake</h3>
-          <p>Our 8-step form collects the same information carriers require — reducing back-and-forth and accelerating your formal application.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">📊</div>
-          <h3>AI Preliminary Scoring</h3>
-          <p>Receive an instant preliminary score tier upon submission, helping you and your advisor prioritize next steps.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">🔐</div>
-          <h3>Secure &amp; Private</h3>
-          <p>Your Social Security Number and health information are encrypted at rest and in transit. We never sell your data.</p>
+        <div class="hero-links">
+          <a href="https://financialprofessionals.massmutual.com/jacob-jake-cornell" target="_blank" rel="noopener">financialprofessionals.massmutual.com/jacob-jake-cornell →</a>
+          <a href="mailto:jcornell@financialguide.com">jcornell@financialguide.com</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="alt">
-    <div class="wrap">
-      <div class="section-header">
-        <h2>What to Expect</h2>
-        <p>A straightforward pre-application process designed for busy clinicians.</p>
-        <div class="gold-line"></div>
+  <div class="wrap main-grid">
+    <!-- Education column -->
+    <div class="edu-col">
+      <h2>Why Own-Occupation Disability Matters</h2>
+      <p class="lead">Your medical training is your most valuable asset. Group coverage at the hospital often isn't enough.</p>
+
+      <div class="edu-card">
+        <h3>True Own-Occupation Protection</h3>
+        <p>If illness or injury stops you from performing your specialty, benefits pay — even if you can work in another role. Group policies often switch to "any occupation" after 24 months.</p>
       </div>
-      <div class="expect-grid">
-        <ul class="expect-list">
-          <li>
-            <span class="step-num">1</span>
-            <div>
-              <strong>Complete the 8-Step Intake</strong>
-              <span>Provide personal, occupational, financial, insurance, medical, lifestyle, and disability details through our guided wizard.</span>
-            </div>
-          </li>
-          <li>
-            <span class="step-num">2</span>
-            <div>
-              <strong>Receive Your Score Tier</strong>
-              <span>Our AI scoring engine evaluates your profile and assigns a preliminary tier immediately upon submission.</span>
-            </div>
-          </li>
-          <li>
-            <span class="step-num">3</span>
-            <div>
-              <strong>Advisor Review &amp; Follow-Up</strong>
-              <span>A licensed advisor reviews your intake, discusses carrier options, and guides you through the formal application process.</span>
-            </div>
-          </li>
-          <li>
-            <span class="step-num">4</span>
-            <div>
-              <strong>Formal Application &amp; Medical Exam</strong>
-              <span>If you proceed, you may complete a medical examination (including blood and urine tests) as part of the carrier application.</span>
-            </div>
-          </li>
-        </ul>
-        <div class="expect-highlight">
-          <h3>Have These Ready</h3>
-          <ul>
-            <li>Full legal name, date of birth, and residential address</li>
-            <li>Social Security Number (encrypted at submission)</li>
-            <li>Employer, specialty, duties, and income details</li>
-            <li>Height, weight, and health history</li>
-            <li>Current medications and surgeries</li>
-            <li>Existing life and disability policies</li>
-            <li>Financial overview and beneficiary information</li>
-          </ul>
-        </div>
+      <div class="edu-card highlight">
+        <h3>Future Income Option (FIO)</h3>
+        <p>Lock in the right to increase coverage as your attending income grows — without new medical exams. Critical for residents and fellows whose income will jump after training.</p>
+        <p class="tip">Ask me how FIO fits your training timeline.</p>
+      </div>
+      <div class="edu-card highlight">
+        <h3>Cost of Living Adjustment (COLA)</h3>
+        <p>If you're on claim, benefits can increase annually to help keep pace with inflation — protecting real purchasing power over a long career.</p>
+      </div>
+      <div class="edu-card highlight">
+        <h3>Extended Partial Disability</h3>
+        <p>Covers income loss when you return part-time in your specialty — not just total disability. Especially valuable for surgeons and proceduralists.</p>
+      </div>
+
+      <div class="vfg-note">
+        <strong>About Jake:</strong> I pride myself on getting to know each client and understanding what matters most to them.
+        My focus includes disability income insurance, life insurance, and wealth strategies for medical professionals.
+        <br><br>
+        300 Corporate Pkwy, Ste 216N · Amherst, NY 14226
       </div>
     </div>
-  </section>
 
-  <section>
-    <div class="wrap">
-      <div class="section-header">
-        <h2>8-Section Pre-Application Overview</h2>
-        <p>Our intake wizard mirrors the information carriers require for disability income insurance applications.</p>
-        <div class="gold-line"></div>
-      </div>
-      <div class="steps-overview">
-        <div class="step-card">
-          <div class="num">Step 1</div>
-          <h4>Personal Information</h4>
-          <p>Legal name, date of birth, contact details, preferred contact method, residential address, gender, marital status, and dependents.</p>
-        </div>
-        <div class="step-card">
-          <div class="num">Step 2</div>
-          <h4>Occupation &amp; Duties</h4>
-          <p>Provider type, specialty, career stage, employer, duties performed, hours worked, income sources, and licensure.</p>
-        </div>
-        <div class="step-card">
-          <div class="num">Step 3</div>
-          <h4>Financial Profile</h4>
-          <p>Annual income, expense ranges, assets, debts, student loans, home and vehicle values, and desired monthly benefit.</p>
-        </div>
-        <div class="step-card">
-          <div class="num">Step 4</div>
-          <h4>Insurance History</h4>
-          <p>Existing disability and life policies, health insurance status, prior denials, group coverage, and beneficiary details.</p>
-        </div>
-        <div class="step-card">
-          <div class="num">Step 5</div>
-          <h4>Medical &amp; Health</h4>
-          <p>Height, weight, tobacco and substance use, medical conditions, medications, surgeries, and family history.</p>
-        </div>
-        <div class="step-card">
-          <div class="num">Step 6</div>
-          <h4>Lifestyle &amp; Risk</h4>
-          <p>Exercise habits, hobbies, travel frequency, dangerous activities, DUI history, and military status.</p>
-        </div>
-        <div class="step-card">
-          <div class="num">Step 7</div>
-          <h4>Disability Details</h4>
-          <p>Current disability status, reason for applying, symptoms, work impact, referral source, and additional notes.</p>
-        </div>
-        <div class="step-card">
-          <div class="num">Step 8</div>
-          <h4>Disclosures &amp; Consent</h4>
-          <p>Privacy consent, medical exam acknowledgment, agent follow-up acknowledgment, and premium targeting confirmation.</p>
+    <!-- Form column -->
+    <div class="form-shell">
+      <h2>Request Your Free Income Review</h2>
+      <p class="form-sub">~3 minutes · Confidential · I'll prepare a quote or call you directly.</p>
+
+      <div class="progress">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-label">
+          <span id="stepLabel">Step 1 of 4</span>
+          <span id="stepPct">25%</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="alt">
-    <div class="wrap">
-      <div class="disclaimer">
-        <strong>Disclaimer:</strong> Mutual Income Protection is an independent disability insurance pre-application and lead management tool.
-        <strong>Advisor: Jacob Cornell, NPN 20476670</strong> — licensed American agent with 3+ years of experience, guaranteed.
-        This tool is not affiliated with any insurance carrier. Styling is for visual reference only.
-        This is not an offer of insurance, a binding quote, or a guarantee of coverage.
-        A licensed advisor will review your information and discuss carrier options with you.
-      </div>
-    </div>
-  </section>
+      <form id="leadForm" novalidate>
+        <!-- Step 1: Own-occ intro (in-form recap) -->
+        <div class="step active" data-step="1">
+          <div class="edu-inline">
+            <strong>Step 1 — Own-Occupation Basics</strong><br>
+            MassMutual disability policies can define disability by <em>your specialty</em> — not any job you're qualified for. That's the difference between protecting a $400k+ surgeon income vs. a generic desk-job benefit.
+          </div>
+          <p style="font-size:0.82rem;color:var(--muted);">Tap Continue to learn about the three riders most physicians add.</p>
+        </div>
 
-  <div class="cta-band">
-    <div class="wrap">
-      <h2>Protect Your $300k+ Income Today</h2>
-      <p>Join physicians and dentists who secure own-occupation coverage with target premiums under 1-3%. Takes ~12 minutes.</p>
-      <a class="btn-primary" href="/apply">Start My Protected Application →</a>
+        <!-- Step 2: Riders -->
+        <div class="step" data-step="2">
+          <div class="edu-inline">
+            <strong>Future Income Option</strong> — Increase coverage later without new underwriting.<br><br>
+            <strong>COLA</strong> — Benefits rise with inflation during a claim.<br><br>
+            <strong>Extended Partial</strong> — Partial pay when you work reduced hours in your specialty.
+          </div>
+          <p style="font-size:0.82rem;color:var(--muted);">On the last step you'll tell me which riders interest you.</p>
+        </div>
+
+        <!-- Step 3: Contact -->
+        <div class="step" data-step="3">
+          <div class="field">
+            <label for="full_name">Full Name <span class="req">*</span></label>
+            <input id="full_name" name="full_name" required maxlength="200" placeholder="Dr. Jane Smith" />
+            <div class="field-error" data-for="full_name"></div>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label for="email">Email <span class="req">*</span></label>
+              <input id="email" name="email" type="email" required />
+              <div class="field-error" data-for="email"></div>
+            </div>
+            <div class="field">
+              <label for="phone">Phone <span class="req">*</span></label>
+              <input id="phone" name="phone" type="tel" required placeholder="(315) 555-5555" />
+              <div class="field-error" data-for="phone"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="medical_specialty">Medical Specialty <span class="req">*</span></label>
+            <select id="medical_specialty" name="medical_specialty" required>
+              <option value="">Select...</option>
+              <option value="physician">Physician</option>
+              <option value="dentist">Dentist</option>
+              <option value="surgeon">Surgeon</option>
+              <option value="other">Other</option>
+            </select>
+            <div class="field-error" data-for="medical_specialty"></div>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label for="income_range">Annual Income <span class="req">*</span></label>
+              <select id="income_range" name="income_range" required>
+                <option value="">Select...</option>
+                <option value="200_400k">$200k – $400k</option>
+                <option value="400_600k">$400k – $600k</option>
+                <option value="600k_plus">$600k+</option>
+                <option value="prefer_not_to_say">Prefer not to say</option>
+              </select>
+              <div class="field-error" data-for="income_range"></div>
+            </div>
+            <div class="field">
+              <label for="disability_insurance_status">Current DI Coverage <span class="req">*</span></label>
+              <select id="disability_insurance_status" name="disability_insurance_status" required>
+                <option value="">Select...</option>
+                <option value="none">None</option>
+                <option value="employer_group_only">Employer group only</option>
+                <option value="individual_policy">Individual policy</option>
+                <option value="group_and_individual">Group + individual</option>
+                <option value="unsure">Unsure</option>
+              </select>
+              <div class="field-error" data-for="disability_insurance_status"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="best_time_to_contact">Best Time to Call <span class="req">*</span></label>
+            <select id="best_time_to_contact" name="best_time_to_contact" required>
+              <option value="">Select...</option>
+              <option value="morning">Morning</option>
+              <option value="afternoon">Afternoon</option>
+              <option value="evening">Evening</option>
+              <option value="anytime">Anytime</option>
+              <option value="weekends">Weekends</option>
+            </select>
+            <div class="field-error" data-for="best_time_to_contact"></div>
+          </div>
+        </div>
+
+        <!-- Step 4: Health -->
+        <div class="step" data-step="4">
+          <div class="grid-3">
+            <div class="field">
+              <label for="height_feet">Ht (ft) <span class="req">*</span></label>
+              <input id="height_feet" name="height_feet" type="number" min="4" max="7" required />
+              <div class="field-error" data-for="height_feet"></div>
+            </div>
+            <div class="field">
+              <label for="height_inches">Ht (in) <span class="req">*</span></label>
+              <input id="height_inches" name="height_inches" type="number" min="0" max="11" required />
+              <div class="field-error" data-for="height_inches"></div>
+            </div>
+            <div class="field">
+              <label for="weight_lbs">Wt (lbs) <span class="req">*</span></label>
+              <input id="weight_lbs" name="weight_lbs" type="number" min="80" max="500" required />
+              <div class="field-error" data-for="weight_lbs"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="tobacco_nicotine">Tobacco / Nicotine <span class="req">*</span></label>
+            <select id="tobacco_nicotine" name="tobacco_nicotine" required>
+              <option value="">Select...</option>
+              <option value="never">Never</option>
+              <option value="former">Former</option>
+              <option value="current">Current</option>
+            </select>
+            <div class="field-error" data-for="tobacco_nicotine"></div>
+          </div>
+          <div class="field">
+            <label for="medical_history">Medical History <span class="req">*</span></label>
+            <textarea id="medical_history" name="medical_history" required maxlength="3000"
+              placeholder="Conditions, medications, surgeries — or &quot;None&quot;"></textarea>
+            <div class="field-error" data-for="medical_history"></div>
+          </div>
+          <div class="field">
+            <label>Riders you'd like to discuss</label>
+            <div class="rider-checks">
+              <label>
+                <input type="checkbox" id="interest_future_income_option" name="interest_future_income_option" />
+                <span>Future Income Option (FIO)</span>
+              </label>
+              <label>
+                <input type="checkbox" id="interest_cola" name="interest_cola" />
+                <span>Cost of Living Adjustment (COLA)</span>
+              </label>
+              <label>
+                <input type="checkbox" id="interest_extended_partial" name="interest_extended_partial" />
+                <span>Extended Partial Disability</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav">
+          <button type="button" class="btn btn-secondary hidden" id="prevBtn">← Back</button>
+          <button type="button" class="btn btn-primary" id="nextBtn">Continue →</button>
+          <button type="submit" class="btn btn-primary hidden" id="submitBtn">Get My Quote →</button>
+        </div>
+        <div id="formMsg" class="form-msg" role="alert"></div>
+      </form>
     </div>
   </div>
 
   <footer>
-    <div class="brand-footer">Mutual Income Protection</div>
-    <p>© 2026 Mutual Income Protection · Secure · Encrypted · HIPAA-Aware · AI Scoring</p>
-    <p style="margin-top:0.5rem; font-size:0.78rem; opacity:0.6;">Advisor: Jacob Cornell, NPN 20476670. Information-gathering tool only.</p>
+    <div class="wrap">
+      <p><strong>Jacob Cornell</strong> · Financial Services Professional · NPN 20476670</p>
+      <p>Mutual Income Protection · Vision Financial Group · <a href="mailto:jcornell@financialguide.com">jcornell@financialguide.com</a> · <a href="tel:3156714384">(315) 671-4384</a></p>
+      <p class="mm-disc">
+        Local firms are sales offices of Massachusetts Mutual Life Insurance Company (MassMutual), Springfield, MA 01111-0001
+        and are not subsidiaries of MassMutual or its affiliated companies. This page is for informational purposes only —
+        not an insurance application, binding quote, or offer of coverage. Securities and investment advisory services offered
+        through MML Investors Services, LLC. Member <a href="https://www.sipc.org/" target="_blank" rel="noopener">SIPC</a>.
+        Check the background of your financial professional on <a href="https://brokercheck.finra.org/" target="_blank" rel="noopener">FINRA's BrokerCheck</a>.
+      </p>
+    </div>
   </footer>
+
+  <script>
+    const TOTAL = 4;
+    let step = 1;
+    const form = document.getElementById("leadForm");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const submitBtn = document.getElementById("submitBtn");
+    const progressFill = document.getElementById("progressFill");
+    const stepLabel = document.getElementById("stepLabel");
+    const stepPct = document.getElementById("stepPct");
+    const formMsg = document.getElementById("formMsg");
+
+    const TITLES = [
+      "Step 1 of 4 — Own-Occupation",
+      "Step 2 of 4 — Key Riders",
+      "Step 3 of 4 — Your Info",
+      "Step 4 of 4 — Health & Riders"
+    ];
+
+    function showErr(name, msg) {
+      const e = document.querySelector('.field-error[data-for="' + name + '"]');
+      const f = form.elements[name] || document.getElementById(name);
+      if (e) { e.textContent = msg; e.classList.add("show"); }
+      if (f && f.classList) f.classList.add("invalid");
+    }
+    function clearErrs(panel) {
+      panel.querySelectorAll(".field-error").forEach(e => { e.textContent = ""; e.classList.remove("show"); });
+      panel.querySelectorAll(".invalid").forEach(e => e.classList.remove("invalid"));
+      formMsg.className = "form-msg";
+      formMsg.textContent = "";
+    }
+    function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+    function validateStep(s) {
+      const panel = document.querySelector('.step[data-step="' + s + '"]');
+      clearErrs(panel);
+      let ok = true;
+      if (s === 3) {
+        if (!form.full_name.value.trim()) { showErr("full_name", "Required."); ok = false; }
+        if (!validEmail(form.email.value.trim())) { showErr("email", "Valid email required."); ok = false; }
+        if (form.phone.value.replace(/\D/g,"").length < 10) { showErr("phone", "Valid phone required."); ok = false; }
+        ["medical_specialty","income_range","disability_insurance_status","best_time_to_contact"].forEach(f => {
+          if (!form.elements[f].value) { showErr(f, "Required."); ok = false; }
+        });
+      }
+      if (s === 4) {
+        const hf = parseInt(form.height_feet.value,10), hi = parseInt(form.height_inches.value,10), wl = parseInt(form.weight_lbs.value,10);
+        if (isNaN(hf)||hf<4||hf>7) { showErr("height_feet","4–7"); ok=false; }
+        if (isNaN(hi)||hi<0||hi>11) { showErr("height_inches","0–11"); ok=false; }
+        if (isNaN(wl)||wl<80||wl>500) { showErr("weight_lbs","80–500"); ok=false; }
+        if (!form.tobacco_nicotine.value) { showErr("tobacco_nicotine","Required."); ok=false; }
+        if (form.medical_history.value.trim().length < 2) { showErr("medical_history","Required."); ok=false; }
+      }
+      if (!ok) { formMsg.className = "form-msg error"; formMsg.textContent = "Please fix highlighted fields."; }
+      return ok;
+    }
+
+    function updateUI() {
+      document.querySelectorAll(".step").forEach(p => {
+        p.classList.toggle("active", parseInt(p.dataset.step,10) === step);
+      });
+      stepLabel.textContent = TITLES[step-1];
+      const pct = Math.round((step/TOTAL)*100);
+      stepPct.textContent = pct + "%";
+      progressFill.style.width = pct + "%";
+      prevBtn.classList.toggle("hidden", step === 1);
+      nextBtn.classList.toggle("hidden", step === TOTAL);
+      submitBtn.classList.toggle("hidden", step !== TOTAL);
+    }
+
+    function buildPayload() {
+      const fd = new FormData(form);
+      const p = {};
+      for (const [k,v] of fd.entries()) {
+        if (k.startsWith("interest_")) continue;
+        if (v !== "") p[k] = v;
+      }
+      p.interest_future_income_option = document.getElementById("interest_future_income_option").checked;
+      p.interest_cola = document.getElementById("interest_cola").checked;
+      p.interest_extended_partial = document.getElementById("interest_extended_partial").checked;
+      ["height_feet","height_inches","weight_lbs"].forEach(f => { p[f] = parseInt(p[f],10); });
+      return p;
+    }
+
+    prevBtn.addEventListener("click", () => { if (step > 1) { step--; updateUI(); } });
+    nextBtn.addEventListener("click", () => {
+      if (step < 3 || validateStep(step)) { step++; updateUI(); }
+    });
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      if (!validateStep(4)) return;
+      submitBtn.disabled = true;
+      nextBtn.disabled = true;
+      prevBtn.disabled = true;
+      try {
+        window.parent.postMessage({ type: "mip:short_lead_submit", payload: buildPayload() }, "*");
+        formMsg.style.display = "block";
+        formMsg.style.background = "#e8f5ee";
+        formMsg.style.color = "#007A53";
+        formMsg.textContent = "Submitting…";
+      } catch (err) {
+        formMsg.className = "form-msg error";
+        formMsg.textContent = err.message;
+        submitBtn.disabled = false;
+      }
+    });
+
+    updateUI();
+  </script>
 </body>
 </html>

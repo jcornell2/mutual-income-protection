@@ -19,6 +19,7 @@ from app.services import (
     list_leads,
     update_lead,
 )
+from app.short_lead_service import LABELS, list_short_leads, short_lead_to_response
 from frontend.db import get_session
 
 STATUSES = ["new", "contacted", "qualified", "app_submitted", "converted", "declined", "lost", "unsubscribed"]
@@ -180,6 +181,44 @@ def render_scoring() -> None:
             )
 
 
+def render_short_leads() -> None:
+    with get_session() as db:
+        leads = list_short_leads(db, limit=500)
+        rows = []
+        for lead in leads:
+            r = short_lead_to_response(lead)
+            riders = []
+            if r.interest_future_income_option:
+                riders.append("FIO")
+            if r.interest_cola:
+                riders.append("COLA")
+            if r.interest_extended_partial:
+                riders.append("Partial")
+            rows.append({
+                "id": r.id,
+                "name": r.full_name,
+                "email": r.email,
+                "phone": r.phone,
+                "specialty": LABELS["medical_specialty"].get(r.medical_specialty, r.medical_specialty),
+                "income": LABELS["income_range"].get(r.income_range, r.income_range),
+                "di_status": LABELS["disability_insurance_status"].get(
+                    r.disability_insurance_status, r.disability_insurance_status
+                ),
+                "bmi": r.bmi,
+                "riders": ", ".join(riders) or "—",
+                "contact_time": LABELS["best_time_to_contact"].get(r.best_time_to_contact, r.best_time_to_contact),
+                "status": r.status,
+                "email_sent": "Yes" if r.email_sent else "No",
+                "created": r.created_at.strftime("%Y-%m-%d %H:%M") if r.created_at else "",
+            })
+    st.subheader("Landing Page Inquiries")
+    st.caption("Short-form leads from the public homepage.")
+    if not rows:
+        st.info("No landing page inquiries yet.")
+        return
+    st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
+
+
 def render_crm_page() -> None:
     page = st.session_state.get("crm_page", "Analytics")
     with st.sidebar:
@@ -187,18 +226,23 @@ def render_crm_page() -> None:
         st.caption("Application pipeline & analytics")
         page = st.radio(
             "Nav",
-            ["Analytics", "Pipeline", "Application", "Export", "Scoring"],
-            index=["Analytics", "Pipeline", "Application", "Export", "Scoring"].index(page),
+            ["Analytics", "Inquiries", "Pipeline", "Application", "Export", "Scoring"],
+            index=["Analytics", "Inquiries", "Pipeline", "Application", "Export", "Scoring"].index(
+                page if page in ["Analytics", "Inquiries", "Pipeline", "Application", "Export", "Scoring"] else "Analytics"
+            ),
             label_visibility="collapsed",
             key="crm_nav",
         )
         st.session_state["crm_page"] = page
         st.divider()
-        st.page_link("app.py", label="Home")
-        st.page_link("pages/Apply.py", label="Public Apply Form")
+        st.page_link("frontend/home.py", label="Public Landing Page")
+        st.page_link("frontend/pages/Apply.py", label="Full Application Form (Internal)")
+        st.caption("Share /Apply only when a prospect is ready for the detailed intake.")
 
     if page == "Analytics":
         render_analytics()
+    elif page == "Inquiries":
+        render_short_leads()
     elif page == "Pipeline":
         render_pipeline()
     elif page == "Application":

@@ -94,10 +94,9 @@ def _extract_fragment(html: str, *, wrapper_class: str, body_selector_replace: s
 
 
 def load_landing_html() -> str:
-    """Return landing styles + body for st.html (not iframed — links work normally)."""
+    """Full landing page document for iframe embed (form uses postMessage to parent)."""
     html = (STATIC_DIR / "landing.html").read_text(encoding="utf-8")
-    body = html.replace('href="/apply"', 'href="/Apply"')
-    return _extract_fragment(body, wrapper_class="mip-landing", body_selector_replace=".mip-landing")
+    return _patch_streamlit_links(html)
 
 
 def load_intake_html_fragment() -> str:

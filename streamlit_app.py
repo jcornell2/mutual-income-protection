@@ -30,6 +30,7 @@ home = st.Page(
     icon="🏠",
     default=True,
 )
+# Full application form — admin/internal only (not in public navigation)
 apply = st.Page(
     "frontend/pages/Apply.py",
     title="Apply",
@@ -43,5 +44,5 @@ admin = st.Page(
     url_path="Admin",
 )
 
-pg = st.navigation([home, apply, admin], position="hidden")
+pg = st.navigation([home, admin, apply], position="hidden")
 pg.run()
