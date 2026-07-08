@@ -2,8 +2,12 @@
 
 from app.config import APP_NAME
 
+ADVISOR_NAME = "Jacob Cornell"
+ADVISOR_NPN = "20476670"
+ADVISOR_LINE = f"Advisor: {ADVISOR_NAME}, NPN {ADVISOR_NPN}"
 AGENT_CREDENTIAL_LINE = (
-    "Licensed American agents with 3+ years of experience — guaranteed."
+    f"Licensed American agent {ADVISOR_NAME} (NPN {ADVISOR_NPN}) "
+    "with 3+ years of experience — guaranteed."
 )
 
 PHYSICIAN_SPECIALTIES = [
