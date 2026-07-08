@@ -21,11 +21,9 @@ STREAMLIT_SUBMIT_REDIRECT = """
       const payload = buildPayload();
 
       try {
-        const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-        const applyPath = window.location.pathname.includes("Apply") ? window.location.pathname : "/Apply";
-        const url = new URL(applyPath, window.location.origin);
-        url.searchParams.set("lead_data", encoded);
-        window.location.assign(url.toString());
+        window.parent.postMessage({ type: "mip:lead_submit", payload }, "*");
+        message.className = "message";
+        message.textContent = "Submitting your application…";
       } catch (err) {
         message.className = "message error";
         message.textContent = err.message;
@@ -66,6 +64,12 @@ _LEGACY_SUBMIT_POSTMESSAGE = """    form.addEventListener("submit", async (e) =>
 
 
 def _patch_streamlit_links(html: str) -> str:
+    """Back links inside the iframe should navigate the Streamlit parent page."""
+    html = html.replace('class="back-link" href="/"', 'class="back-link" href="/" target="_parent"')
+    html = html.replace(
+        'href="/" class="btn btn-primary" style="display: inline-block;',
+        'href="/" target="_parent" class="btn btn-primary" style="display: inline-block;',
+    )
     return html
 
 

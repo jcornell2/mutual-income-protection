@@ -1437,11 +1437,9 @@
         const payload = buildPayload();
 
         try {
-          const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-          const applyPath = window.location.pathname.includes("Apply") ? window.location.pathname : "/Apply";
-          const url = new URL(applyPath, window.location.origin);
-          url.searchParams.set("lead_data", encoded);
-          window.location.assign(url.toString());
+          window.parent.postMessage({ type: "mip:lead_submit", payload }, "*");
+          message.className = "message";
+          message.textContent = "Submitting your application…";
         } catch (err) {
           message.className = "message error";
           message.textContent = err.message;

@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 import streamlit as st
+import streamlit.components.v1 as components
 from pydantic import ValidationError
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -28,7 +29,28 @@ load_dotenv(ROOT / ".env")
 from app.schemas import LeadCreate
 from app.services import create_lead, lead_to_response
 from frontend.db import ensure_db, get_session
-from frontend.html_pages import load_intake_html_fragment
+from frontend.html_pages import load_intake_html
+
+# Parent-page bridge: iframe cannot navigate Streamlit (sandbox), so the form posts here.
+SUBMIT_BRIDGE_JS = """
+<script>
+window.addEventListener("message", function (event) {
+  if (event.origin !== window.location.origin) return;
+  if (!event.data || event.data.type !== "mip:lead_submit") return;
+  try {
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(event.data.payload))));
+    const applyPath = window.location.pathname.includes("Apply")
+      ? window.location.pathname
+      : "/Apply";
+    const url = new URL(applyPath, window.location.origin);
+    url.searchParams.set("lead_data", encoded);
+    window.location.assign(url.toString());
+  } catch (err) {
+    console.error("MIP submit bridge failed:", err);
+  }
+});
+</script>
+"""
 
 CUSTOMER_CSS = """
 <style>
@@ -132,5 +154,6 @@ if lead_data_param:
             _process_submission(form_payload)
     st.stop()
 
-# Same-page embed (not iframe) so final submit can redirect with ?lead_data=…
-st.html(load_intake_html_fragment(), width="stretch", unsafe_allow_javascript=True)
+# Iframe: step-navigation JS runs reliably. Submit uses postMessage → bridge above.
+st.html(SUBMIT_BRIDGE_JS, unsafe_allow_javascript=True)
+components.html(load_intake_html(), height=1800, scrolling=True)
