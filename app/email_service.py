@@ -7,7 +7,8 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from app.config import AGENT_NPN, APP_NAME, get_settings
+from app.config import APP_NAME, get_settings
+from app.constants import AGENT_CREDENTIAL_LINE
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +21,7 @@ def _build_application_email(*, lead_id: int, summary: dict) -> tuple[str, str, 
     <div style="max-width:640px;margin:0 auto;border:1px solid #D4DCE6;border-radius:8px;overflow:hidden;">
       <div style="background:#002F6C;color:#fff;padding:20px;border-bottom:4px solid #C4A962;">
         <h2 style="margin:0;">{APP_NAME}</h2>
-        <p style="margin:8px 0 0;opacity:0.9;">New information-gathering inquiry — Agent NPN {AGENT_NPN}</p>
+        <p style="margin:8px 0 0;opacity:0.9;">New information-gathering inquiry — {AGENT_CREDENTIAL_LINE}</p>
       </div>
       <div style="padding:20px;">
         <p><strong>Inquiry ID:</strong> {lead_id}</p>
@@ -35,7 +36,7 @@ def _build_application_email(*, lead_id: int, summary: dict) -> tuple[str, str, 
         <p><strong>Reason:</strong><br>{summary.get('reason_for_applying', '—')}</p>
         <hr>
         <p style="font-size:12px;color:#5A6B7D;">
-          Proprietary tool of Licensed Agent NPN {AGENT_NPN}. Follow up per applicant's contact preference.
+          {AGENT_CREDENTIAL_LINE} Follow up per applicant's contact preference.
           SSN and payment details to be collected by agent during formal application.
         </p>
       </div>

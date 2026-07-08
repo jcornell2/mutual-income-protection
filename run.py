@@ -153,7 +153,7 @@ def main() -> None:
         print(f"  Landing page:      {api_base}/")
         print(f"  Intake form:       {api_base}/apply")
         print(f"  Admin dashboard:   http://127.0.0.1:{streamlit_port}")
-        print(f"  Agent NPN:         20476670")
+        print("  Agent team:        Licensed American agents · 3+ yrs experience")
         print("\nKeep this window open. Press Ctrl+C to stop.\n")
 
         api_proc = subprocess.Popen(

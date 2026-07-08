@@ -1,6 +1,10 @@
 """Mutual Income Protection reference data."""
 
-from app.config import AGENT_NPN, APP_NAME
+from app.config import APP_NAME
+
+AGENT_CREDENTIAL_LINE = (
+    "Licensed American agents with 3+ years of experience — guaranteed."
+)
 
 PHYSICIAN_SPECIALTIES = [
     "Anesthesiology", "Cardiology", "Dermatology", "Emergency Medicine", "Family Medicine",
@@ -22,10 +26,10 @@ MEDICAL_CONDITIONS = [
 ]
 
 DISCLAIMER = (
-    f"{APP_NAME} is proprietary property of Licensed Insurance Agent NPN {AGENT_NPN}. "
+    f"{APP_NAME} is an independent disability insurance pre-application tool. "
     "This is an information-gathering tool only — not an insurance application or offer of coverage. "
-    "A licensed disability insurance agent (NPN 20476670) will contact you by phone or email after "
-    "submission, based on your stated preference."
+    f"{AGENT_CREDENTIAL_LINE} An agent will contact you by phone or email after submission, "
+    "based on your stated preference."
 )
 
 PREMIUM_ACK_TEXT = (
@@ -34,9 +38,9 @@ PREMIUM_ACK_TEXT = (
 )
 
 AGENT_FOLLOWUP_ACK_TEXT = (
-    "I understand this form collects information only. A licensed disability insurance agent "
-    f"(NPN {AGENT_NPN}) will contact me by my preferred method to discuss options and collect "
-    "any additional details needed for a formal carrier application."
+    "I understand this form collects information only. "
+    f"{AGENT_CREDENTIAL_LINE} An agent will contact me by my preferred method to discuss options "
+    "and collect any additional details needed for a formal carrier application."
 )
 
 MEDICAL_EXAM_ACK_TEXT = (

@@ -42,7 +42,7 @@ TEMPLATES: dict[str, EmailTemplate] = {
             "Next steps:\n"
             "1. A licensed advisor will review your profile within 1 business day.\n"
             "2. We will contact you to discuss coverage options and underwriting considerations.\n"
-            "3. If you choose to proceed, your licensed agent (NPN 20476670) will guide you through a formal carrier application.\n\n"
+            "3. If you choose to proceed, a licensed American agent with 3+ years of experience will guide you through a formal carrier application.\n\n"
             "Please have your income documentation and any existing policy details available for your call."
             + _footer()
         ),

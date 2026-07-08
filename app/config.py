@@ -6,7 +6,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 APP_NAME = "Mutual Income Protection"
-AGENT_NPN = "20476670"
 
 
 class Settings(BaseSettings):
