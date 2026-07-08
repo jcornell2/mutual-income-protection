@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from frontend.secrets_bootstrap import bootstrap_env
+from frontend.secrets_bootstrap import bootstrap_env, encryption_key_configured
 
 bootstrap_env()
 
@@ -98,7 +98,8 @@ def _process_submission(form_payload: dict[str, Any]) -> None:
         return
     except Exception as exc:
         st.error(
-            "We could not save your application. Confirm ENCRYPTION_KEY is set in Streamlit Secrets."
+            "We could not save your application. Add ENCRYPTION_KEY in "
+            "Streamlit Cloud → App settings → Secrets, then reboot the app."
         )
         st.caption(f"Details: {exc}")
         return
@@ -115,6 +116,18 @@ def _process_submission(form_payload: dict[str, Any]) -> None:
 
 ensure_db()
 st.markdown(CUSTOMER_CSS, unsafe_allow_html=True)
+
+if not encryption_key_configured():
+    st.error(
+        "Application intake is not fully configured on the server. "
+        "The administrator must add **ENCRYPTION_KEY** in Streamlit Cloud → "
+        "**App settings → Secrets**, then reboot the app."
+    )
+    st.caption(
+        "Local setup: run `python scripts/export_streamlit_secrets.py` and paste "
+        "`exports/streamlit-secrets.toml` into Streamlit Secrets."
+    )
+    st.stop()
 
 if st.session_state.get("submission_success"):
     success = st.session_state["submission_success"]

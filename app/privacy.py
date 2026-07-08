@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import os
 import logging
 import re
 from datetime import datetime, timezone
@@ -24,11 +25,32 @@ class PrivacyError(Exception):
     pass
 
 
-def _get_fernet() -> Fernet:
+def _resolve_encryption_key() -> str:
+    try:
+        from frontend.secrets_bootstrap import bootstrap_env
+
+        bootstrap_env()
+    except Exception:
+        pass
+
     key = get_settings().encryption_key.strip()
     if not key:
+        key = os.environ.get("ENCRYPTION_KEY", "").strip()
+    if not key:
+        try:
+            import streamlit as st
+
+            key = str(st.secrets["ENCRYPTION_KEY"]).strip()
+        except Exception:
+            key = ""
+    return key
+
+
+def _get_fernet() -> Fernet:
+    key = _resolve_encryption_key()
+    if not key:
         raise PrivacyError(
-            "ENCRYPTION_KEY is not set. Copy .env.example to .env and generate a Fernet key."
+            "ENCRYPTION_KEY is not set. Add it in Streamlit Cloud → App settings → Secrets."
         )
     return Fernet(key.encode() if isinstance(key, str) else key)
 

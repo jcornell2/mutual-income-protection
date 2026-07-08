@@ -46,4 +46,10 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings() -> Settings:
+    try:
+        from frontend.secrets_bootstrap import _apply_streamlit_secrets
+
+        _apply_streamlit_secrets()
+    except Exception:
+        pass
     return Settings()
