@@ -13,7 +13,7 @@ from app.red_flags import detect_red_flags
 
 FIELD_SECTIONS: list[tuple[str, list[tuple[str, str]]]] = [
     (
-        "Pre-Screen Red Flags (MassMutual Checklist)",
+        "Pre-Screen Red Flags",
         [
             ("prescreen_disability_leave", "On disability leave / receiving benefits?"),
             ("prescreen_pending_surgery", "Pending surgery or procedure?"),

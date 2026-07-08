@@ -19,7 +19,7 @@ except Exception:
     pass
 
 st.set_page_config(
-    page_title="Mutual Income Protection",
+    page_title="Jake Cornell",
     page_icon="🛡️",
     layout="wide",
 )

@@ -124,7 +124,7 @@ if st.session_state.get("submission_success"):
           <p style="margin:0;color:#1A2B3C;line-height:1.6;">
             Thank you, <strong>{success['name']}</strong>. Reference ID <strong>#{success['id']}</strong>.<br>
             Preliminary score: <strong>{success['score']}/100</strong> ({success['tier']} tier).<br>
-            Jacob Cornell (NPN 20476670) will contact you using your stated preference.
+            Jake Cornell (NPN 20476670) will contact you using your stated preference.
           </p>
         </div>
         """,

@@ -76,7 +76,7 @@ def _calendly_embed_html(*, base_url: str, name: str, email: str) -> str:
         <div style="font-size:2.5rem;margin-bottom:0.5rem;">✅</div>
         <h2 style="margin:0 0 0.5rem;font-size:1.5rem;">Thank You, {html_mod.escape(name)}!</h2>
         <p style="opacity:0.92;font-size:1rem;line-height:1.55;max-width:480px;margin:0 auto;">
-          Jacob will personally review your information and get back to you within 24 hours.
+          Jake will personally review your information and get back to you within 24 hours.
         </p>
       </div>
       <div style="background:#fff;border:1px solid #D4DCE6;border-top:none;padding:1.25rem 1rem 0;border-radius:0 0 12px 12px;">
@@ -87,8 +87,8 @@ def _calendly_embed_html(*, base_url: str, name: str, email: str) -> str:
              style="min-width:300px;height:680px;"></div>
       </div>
       <p style="text-align:center;font-size:0.8rem;color:#5A6B7D;margin-top:1rem;line-height:1.5;">
-        Jacob Cornell, NPN 20476670 · Vision Financial Group · MassMutual<br>
-        <a href="tel:3156714384" style="color:#002F6C;">(315) 671-4384</a> ·
+        Jake Cornell, NPN 20476670<br>
+        <a href="tel:3157832482" style="color:#002F6C;">(315) 783-2482</a> ·
         <a href="mailto:jcornell@financialguide.com" style="color:#002F6C;">jcornell@financialguide.com</a>
       </p>
     </div>
@@ -102,7 +102,7 @@ def _thank_you_simple() -> str:
       <div style="font-size:3rem;margin-bottom:0.75rem;">✅</div>
       <h2 style="color:#002F6C;margin:0 0 1rem;">Thank You!</h2>
       <p style="color:#1A2B3C;font-size:1.1rem;line-height:1.65;margin:0 0 1rem;">
-        Jacob will personally review your information and get back to you within 24 hours.
+        Jake will personally review your information and get back to you within 24 hours.
       </p>
       <p style="color:#5A6B7D;font-size:0.88rem;margin:0;">
         To enable instant booking, add your Calendly link as <code>CALENDLY_URL</code> in secrets.

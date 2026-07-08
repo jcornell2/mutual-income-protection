@@ -25,7 +25,7 @@ from frontend.db import ensure_db
 from frontend.styles import apply_brand, brand_header
 
 ensure_db()
-apply_brand("Mutual Income Protection | Admin CRM")
+apply_brand("Jake Cornell | Admin CRM")
 
 if not require_admin():
     st.stop()

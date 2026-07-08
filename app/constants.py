@@ -2,7 +2,7 @@
 
 from app.config import APP_NAME
 
-ADVISOR_NAME = "Jacob Cornell"
+ADVISOR_NAME = "Jake Cornell"
 ADVISOR_NPN = "20476670"
 ADVISOR_LINE = f"Advisor: {ADVISOR_NAME}, NPN {ADVISOR_NPN}"
 AGENT_CREDENTIAL_LINE = (
@@ -37,7 +37,7 @@ DISCLAIMER = (
 )
 
 PREMIUM_ACK_TEXT = (
-    "✅ I understand that our goal with Mutual Income Protection is to structure coverage while "
+    "✅ I understand that our goal is to structure coverage while "
     "targeting the cost of insurance to be less than 1-3% of my annual income where possible."
 )
 

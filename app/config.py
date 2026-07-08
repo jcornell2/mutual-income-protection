@@ -5,7 +5,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-APP_NAME = "Mutual Income Protection"
+APP_NAME = "Jake Cornell"
 
 
 class Settings(BaseSettings):

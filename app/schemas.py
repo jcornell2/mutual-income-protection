@@ -26,7 +26,7 @@ class MedicationRow(BaseModel):
 
 
 class LeadCreate(BaseModel):
-    # --- Pre-screen red flags (MassMutual checklist) ---
+    # --- Pre-screen red flags ---
     prescreen_disability_leave: Literal["yes", "no"]
     prescreen_pending_surgery: Literal["yes", "no"]
     prescreen_hospitalized_12mo: Literal["yes", "no"]

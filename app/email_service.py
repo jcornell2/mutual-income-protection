@@ -185,7 +185,7 @@ def _build_short_inquiry_email(*, inquiry_id: int, data: dict, submitted_at: dat
     <div style="max-width:600px;margin:0 auto;border:1px solid #D4DCE6;border-radius:10px;overflow:hidden;">
       <div style="background:#002F6C;color:#fff;padding:22px;border-bottom:4px solid #C4A962;">
         <h2 style="margin:0;">{APP_NAME}</h2>
-        <p style="margin:8px 0 0;opacity:0.9;">New landing page inquiry — Jacob Cornell, NPN 20476670</p>
+        <p style="margin:8px 0 0;opacity:0.9;">New landing page inquiry — Jake Cornell, NPN 20476670</p>
       </div>
       <div style="padding:22px;">
         <p style="margin:0 0 16px;">A physician or dentist submitted the short lead form.</p>
