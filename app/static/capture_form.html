@@ -1083,7 +1083,19 @@
     const disabilityDetailsWrap = document.getElementById("disabilityDetailsWrap");
     const denialsWrap = document.getElementById("denialsWrap");
     const conditionsGrid = document.getElementById("conditionsGrid");
+
+    function inputField(name) {
+      if (!form) return null;
+      return form.elements[name] || document.getElementById(name);
+    }
+
+    function inputValue(name) {
+      const el = inputField(name);
+      return el ? String(el.value || "").trim() : "";
+    }
+
     function fillSpecialties(list) {
+      if (!specialtyEl) return;
       const current = specialtyEl.value;
       specialtyEl.innerHTML = '<option value="">Select...</option>';
       list.forEach((s) => {
@@ -1096,6 +1108,7 @@
     }
 
     function buildConditions() {
+      if (!conditionsGrid) return;
       conditionsGrid.innerHTML = "";
       MEDICAL_CONDITIONS.forEach((c) => {
         const id = "cond_" + c.replace(/\W+/g, "_");
@@ -1106,6 +1119,7 @@
     }
 
     function toggleTraining() {
+      if (!careerEl || !trainingWrap) return;
       const stage = careerEl.value;
       const show = stage === "resident" || stage === "fellow";
       trainingWrap.classList.toggle("hidden", !show);
@@ -1138,6 +1152,7 @@
 
     function clearStepErrors(step) {
       const panel = document.querySelector(`.step-panel[data-step="${step}"]`);
+      if (!panel) return;
       panel.querySelectorAll(".field-error").forEach((el) => {
         el.textContent = "";
         el.classList.remove("show");
@@ -1152,7 +1167,7 @@
 
 
     function requireField(name, msg) {
-      const el = form.elements[name] || document.getElementById(name);
+      const el = inputField(name);
       const val = el ? (el.value || "").trim() : "";
       if (!val) {
         showFieldError(name, msg || "This field is required.");
@@ -1162,7 +1177,7 @@
     }
 
     function requireMinLength(name, min, msg) {
-      const el = form.elements[name];
+      const el = inputField(name);
       const val = el ? el.value.trim() : "";
       if (val.length < min) {
         showFieldError(name, msg);
@@ -1177,15 +1192,15 @@
 
       if (step === 1) {
         if (!requireField("full_name", "Full legal name is required.")) valid = false;
-        if (!form.date_of_birth.value) { showFieldError("date_of_birth", "Date of birth is required."); valid = false; }
-        const email = form.email.value.trim();
+        if (!inputValue("date_of_birth")) { showFieldError("date_of_birth", "Date of birth is required."); valid = false; }
+        const email = inputValue("email");
         if (!email || !isValidEmail(email)) { showFieldError("email", "A valid email address is required."); valid = false; }
-        if (form.phone.value.replace(/\D/g, "").length < 10) { showFieldError("phone", "A valid phone number (at least 10 digits) is required."); valid = false; }
-        if (!form.contact_preference.value) { showFieldError("contact_preference", "Please select a contact preference."); valid = false; }
-        if (form.address_street.value.trim().length < 3) { showFieldError("address_street", "Street address is required."); valid = false; }
-        if (form.address_city.value.trim().length < 2) { showFieldError("address_city", "City is required."); valid = false; }
-        if (form.address_state.value.trim().length < 2) { showFieldError("address_state", "State is required."); valid = false; }
-        if (form.address_zip.value.trim().length < 5) { showFieldError("address_zip", "ZIP code is required."); valid = false; }
+        if (inputValue("phone").replace(/\D/g, "").length < 10) { showFieldError("phone", "A valid phone number (at least 10 digits) is required."); valid = false; }
+        if (!inputValue("contact_preference")) { showFieldError("contact_preference", "Please select a contact preference."); valid = false; }
+        if (inputValue("address_street").length < 3) { showFieldError("address_street", "Street address is required."); valid = false; }
+        if (inputValue("address_city").length < 2) { showFieldError("address_city", "City is required."); valid = false; }
+        if (inputValue("address_state").length < 2) { showFieldError("address_state", "State is required."); valid = false; }
+        if (inputValue("address_zip").length < 5) { showFieldError("address_zip", "ZIP code is required."); valid = false; }
       }
 
       if (step === 2) {
@@ -1269,10 +1284,21 @@
       }
 
       if (!valid) {
-        message.className = "message error";
-        message.textContent = "Please correct the highlighted fields before continuing.";
-        message.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      } else {
+        if (message) {
+          message.className = "message error";
+          message.textContent = "Please correct the highlighted fields before continuing.";
+          message.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+        const panel = document.querySelector(`.step-panel[data-step="${step}"]`);
+        const firstInvalid = panel && panel.querySelector(".invalid, .field-error.show");
+        if (firstInvalid) {
+          const focusTarget = firstInvalid.classList.contains("field-error")
+            ? inputField(firstInvalid.getAttribute("data-for"))
+            : firstInvalid;
+          if (focusTarget && focusTarget.focus) focusTarget.focus();
+          firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      } else if (message) {
         message.className = "message";
         message.textContent = "";
       }
@@ -1361,59 +1387,80 @@
       return payload;
     }
 
-    providerEl.addEventListener("change", () => {
-      fillSpecialties(providerEl.value === "dentist" ? DENTAL_SPECIALTIES : PHYSICIAN_SPECIALTIES);
-    });
-    careerEl.addEventListener("change", toggleTraining);
-    document.getElementById("current_disability_status").addEventListener("change", toggleDisabilityDetails);
-    document.getElementById("prior_application_denied").addEventListener("change", toggleDenials);
-
-    prevBtn.addEventListener("click", () => {
-      if (currentStep > 1) {
-        currentStep--;
-        updateUI();
+    function bindIntakeForm() {
+      if (!form || !nextBtn || !prevBtn) {
+        throw new Error("Application form failed to load. Please refresh the page.");
       }
-    });
 
-    nextBtn.addEventListener("click", () => {
-      if (validateStep(currentStep)) {
-        currentStep++;
-        updateUI();
+      if (providerEl) {
+        providerEl.addEventListener("change", () => {
+          fillSpecialties(providerEl.value === "dentist" ? DENTAL_SPECIALTIES : PHYSICIAN_SPECIALTIES);
+        });
       }
-    });
+      if (careerEl) careerEl.addEventListener("change", toggleTraining);
+      const disabilityStatusEl = document.getElementById("current_disability_status");
+      if (disabilityStatusEl) disabilityStatusEl.addEventListener("change", toggleDisabilityDetails);
+      const priorDeniedEl = document.getElementById("prior_application_denied");
+      if (priorDeniedEl) priorDeniedEl.addEventListener("change", toggleDenials);
 
-    fillSpecialties(PHYSICIAN_SPECIALTIES);
-    buildConditions();
-    toggleTraining();
-    toggleDisabilityDetails();
-    toggleDenials();
-    updateUI();
+      prevBtn.addEventListener("click", () => {
+        if (currentStep > 1) {
+          currentStep--;
+          updateUI();
+        }
+      });
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (!validateStep(8)) return;
+      nextBtn.addEventListener("click", () => {
+        if (validateStep(currentStep)) {
+          currentStep++;
+          updateUI();
+        }
+      });
 
-      message.className = "message";
-      message.textContent = "";
-      submitBtn.disabled = true;
-      nextBtn.disabled = true;
-      prevBtn.disabled = true;
+      fillSpecialties(PHYSICIAN_SPECIALTIES);
+      buildConditions();
+      toggleTraining();
+      toggleDisabilityDetails();
+      toggleDenials();
+      updateUI();
 
-      const payload = buildPayload();
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!validateStep(8)) return;
 
-      try {
-        const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-        const url = new URL(window.location.href);
-        url.searchParams.set("lead_data", encoded);
-        window.location.href = url.toString();
-      } catch (err) {
+        message.className = "message";
+        message.textContent = "";
+        submitBtn.disabled = true;
+        nextBtn.disabled = true;
+        prevBtn.disabled = true;
+
+        const payload = buildPayload();
+
+        try {
+          const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+          const topWin = window.top || window;
+          const url = new URL(topWin.location.href);
+          url.searchParams.set("lead_data", encoded);
+          topWin.location.href = url.toString();
+        } catch (err) {
+          message.className = "message error";
+          message.textContent = err.message;
+          submitBtn.disabled = false;
+          nextBtn.disabled = false;
+          prevBtn.disabled = false;
+        }
+      });
+    }
+
+    try {
+      bindIntakeForm();
+    } catch (err) {
+      console.error("MIP intake init failed:", err);
+      if (message) {
         message.className = "message error";
-        message.textContent = err.message;
-        submitBtn.disabled = false;
-        nextBtn.disabled = false;
-        prevBtn.disabled = false;
+        message.textContent = err.message || String(err);
       }
-    });
+    }
   </script>
 </body>
 </html>
